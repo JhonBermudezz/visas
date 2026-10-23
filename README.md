@@ -50,7 +50,8 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 ### Versión anterior
 
 La primera versión (clásica, con serifa) quedó guardada como copia fija en `legacy/`, visible en https://jhonbermudezz.github.io/visas/legacy/ y fuera de los buscadores. No se regenera con el script.
-- Fotografías de colecciones abiertas (Wikimedia Commons y Openverse). Los créditos están en `/creditos/` y en `assets/credits.json`.
+- Fotografías de destinos y de Bogotá de colecciones abiertas (Wikimedia Commons y Openverse); créditos en `/creditos/` y en `assets/credits.json`.
+- Imágenes ilustrativas de viajeros, documentos y el mapa del mundo generadas con IA en KIE (modelo nano-banana): `hero-familia`, `hero-eeuu`, `hero-destinos`, `documentos`, `entrega` y `mapa` en `assets/img/`. No muestran clientes reales ni al equipo; reemplazarlas por fotos propias cuando el cliente las envíe.
 
 ## Pendiente antes de publicar
 

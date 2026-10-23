@@ -84,6 +84,12 @@ PHOTOS = {
     'sellos': ('Sellos de entrada y salida en las páginas de un pasaporte', 1920, 1293, 'Sellos migratorios'),
     'taxi': ('Taxi amarillo en la avenida El Dorado, Bogotá', 1920, 1440, 'Bogotá'),
     'candelaria': ('Calle empedrada del barrio La Candelaria, Bogotá', 1794, 1200, 'Bogotá'),
+    # Imágenes ilustrativas generadas con IA (KIE): no muestran clientes reales ni al equipo
+    'hero-familia': ('Familia colombiana con sus pasaportes en un aeropuerto', 1344, 768, 'Ilustrativa'),
+    'hero-eeuu': ('Viajero con pasaporte y carpeta de documentos en un aeropuerto', 1344, 768, 'Ilustrativa'),
+    'hero-destinos': ('Pareja con maleta frente al tablero de salidas de un aeropuerto', 1344, 768, 'Ilustrativa'),
+    'documentos': ('Pasaportes y formularios de solicitud de visa sobre un escritorio', 1248, 832, 'Ilustrativa'),
+    'entrega': ('Asesor entregando un pasaporte y una carpeta de documentos', 896, 1152, 'Ilustrativa'),
 }
 CREDIT_KEYS = {'west-front': 'capitolio', 'westminster': 'westminster', 'ottawa': 'ottawa', 'sydney': 'sidney', 'petronas': 'petronas',
                'cerros': 'bogota', 'melbourne': 'salidas', 'myanmar': 'sellos', 'taxi': 'taxi', 'candelaria': 'candelaria'}
@@ -461,7 +467,7 @@ def footer(R):
         <p>© {YEAR} {BRAND}. Pagos en línea con ePayco.</p>
         <a href="#top">Volver arriba</a>
       </div>
-      <p class="footer__credits">Fotografías de colecciones abiertas con licencia libre. <a href="{R}creditos/">Ver créditos</a>.</p>
+      <p class="footer__credits">Imágenes ilustrativas y fotografías de colecciones abiertas. <a href="{R}creditos/">Ver créditos</a>.</p>
     </div>
   </footer>
 
@@ -515,17 +521,21 @@ def inner_hero(R, trail, h1_lines, lead, side='', actions='', photo=None, h1=Non
     </section>'''
 
 
-def close_band(R, line='¿Tienes una cita cerca o una visa por renovar? Escríbenos y revisamos tu caso.'):
+def close_band(R, line='Hablemos de tu visa', photo='entrega'):
     return f'''
-    <section class="section section--navy on-navy" aria-labelledby="hablemos">
-      <div class="wrap close" data-reveal>
-        <p class="close__line">{line}</p>
-        <figure class="close__photo shutter" data-shutter>{img(R, "bogota", sizes="176px", alt="Bogotá, sede de nuestra oficina")}</figure>
-        <div class="close__links">
-          <h2 id="hablemos">Hablemos</h2>
-          <a href="{wa("Hola, quiero que revisen mi caso de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">WhatsApp {PHONE}</a>
-          <a href="mailto:{EMAIL}">{EMAIL}</a>
-          <p class="small">{ADDRESS} · {HOURS}</p>
+    <section class="section cta-section" aria-labelledby="hablemos">
+      <div class="wrap">
+        <div class="cta-card on-navy" data-reveal>
+          <div class="cta-card__body">
+            <h2 class="head" id="hablemos">{line}</h2>
+            <p class="lead">Escríbenos y un asesor revisa tu caso. Te respondemos con los pasos a seguir y el valor del servicio.</p>
+            <div class="actions">
+              <a class="btn btn--wa" href="{wa("Hola, quiero que revisen mi caso de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
+              <a class="btn btn--line" href="tel:{PHONE_TEL}">{icon("phone")}Llamar</a>
+            </div>
+            <p class="cta-card__meta">{ADDRESS} · {HOURS}</p>
+          </div>
+          <figure class="cta-card__photo">{img(R, photo, sizes="(max-width: 860px) 100vw, 45vw", alt=PHOTOS[photo][0])}</figure>
         </div>
       </div>
     </section>'''
@@ -577,11 +587,11 @@ def page(path, title, desc, body, active='', ld=None, noindex=False, file=None, 
 # Inicio
 # ---------------------------------------------------------------------------
 SLIDES = [
-    {'tab': 'Colombia', 'flag': 'co', 'photo': 'bogota', 'title': 'Desde Bogotá, para todo el país',
+    {'tab': 'Colombia', 'flag': 'co', 'photo': 'hero-familia', 'title': 'Desde Bogotá, para todo el país',
      'lead': 'Preparamos tu solicitud de visa para Estados Unidos, Reino Unido, Canadá, Australia y Malasia: revisamos tu caso, ordenamos los documentos y te acompañamos hasta la cita.'},
-    {'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'capitolio', 'title': 'Visa americana, bien preparada',
+    {'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'hero-eeuu', 'title': 'Visa americana, bien preparada',
      'lead': 'Primera vez, renovación, visas revocadas o perdidas. Revisamos tu perfil antes de diligenciar el DS-160 y te preparamos para la entrevista.'},
-    {'tab': 'Más destinos', 'flag': 'gb', 'photo': 'westminster', 'title': 'Reino Unido, Canadá, Australia y Malasia',
+    {'tab': 'Más destinos', 'flag': 'gb', 'photo': 'hero-destinos', 'title': 'Reino Unido, Canadá, Australia y Malasia',
      'lead': 'Visas de turismo con solicitud en línea, soportes en orden y cita biométrica cuando el país la exige.'},
 ]
 
@@ -597,11 +607,27 @@ def home(R):
               <p class="lead">{s["lead"]}</p>
             </div>''')
 
-    def row(href, code, country, what):
-        return f'''<a class="row" href="{R}{href}">{flag(code)}<span class="row__country">{country}</span><span class="row__what">{what}</span><span class="row__go"><span>Ver proceso</span>{ARROW}</span></a>'''
-
-    us_rows = ''.join(row(f'servicios/visa-estados-unidos/{s["slug"]}/', 'us', 'Estados Unidos', s['name']) for s in US_SUBS)
-    other_rows = ''.join(row(f'servicios/{c["slug"]}/', c['flag'], c['country'], 'Visa de turismo') for c in COUNTRIES)
+    us_links = ''.join(f'<li><a href="{R}servicios/visa-estados-unidos/{x["slug"]}/">{x["name"]} {ARROW}</a></li>' for x in US_SUBS)
+    cards = [f'''<article class="country country--us">
+            <a class="country__img" href="{R}servicios/visa-estados-unidos/" tabindex="-1" aria-hidden="true">{img(R, "capitolio", sizes="(max-width: 860px) 100vw, 66vw")}</a>
+            <span class="country__flag">{flag("us", " fis")}</span>
+            <div class="country__body">
+              <h3><a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
+              <p>Visa de turismo B1/B2 en cuatro casos.</p>
+              <ul class="country__links">{us_links}</ul>
+            </div>
+          </article>''']
+    for c in COUNTRIES:
+        cards.append(f'''<article class="country">
+            <a class="country__img" href="{R}servicios/{c["slug"]}/" tabindex="-1" aria-hidden="true">{img(R, c["photo"], sizes="(max-width: 860px) 100vw, 33vw")}</a>
+            <span class="country__flag">{flag(c["flag"], " fis")}</span>
+            <div class="country__body">
+              <h3><a href="{R}servicios/{c["slug"]}/">{c["country"]}</a></h3>
+              <p>{c["short"]}</p>
+              <a class="more" href="{R}servicios/{c["slug"]}/">Ver el proceso {ARROW}</a>
+            </div>
+          </article>''')
+    country_cards = ''.join(cards)
 
     lead_post, rest = POSTS[0], POSTS[1:3]
     post_rows = ''.join(f'''<a class="post-row" href="{R}blog/{p["slug"]}/">
@@ -632,7 +658,7 @@ def home(R):
             {"".join(slides)}
           </div>
           <div class="actions hero__actions">
-            <a class="btn btn--light" href="#consulta">Solicitar asesoría</a>
+            <a class="btn btn--primary" href="#consulta">Solicitar asesoría</a>
             <a class="btn btn--wa" href="{wa("Hola, quiero información sobre la visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
           </div>
         </div>
@@ -641,33 +667,22 @@ def home(R):
     </section>
 
     <section class="trust" aria-label="Respaldo">
-      <div class="wrap trust__grid" data-reveal>
+      <div class="wrap"><div class="trust__panel trust__grid on-navy">
         <p class="trust__note"><strong>Somos asesores privados, no una entidad oficial.</strong>No somos una embajada ni una oficina del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
         <p class="fact"><span class="fact__value" data-count="2000" data-prefix="+">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
         <p class="fact"><span class="fact__value" data-count="6" data-suffix=" años">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
         <p class="fact"><span class="fact__value">Bogotá</span><span class="fact__label">oficina en la Carrera 45 y atención por WhatsApp</span></p>
-      </div>
+      </div></div>
     </section>
 
-    <section class="section" aria-labelledby="procesos" id="servicios">
+    <section class="section section--tone" aria-labelledby="procesos" id="servicios">
       <div class="wrap">
         <div class="svc__head" data-reveal>
           <h2 class="head" id="procesos">Procesos de visa internacional</h2>
           <p class="lead">Elige tu destino y conoce cómo preparamos cada solicitud.</p>
         </div>
-        <div class="axis">
-          <figure class="axis__side svc__figure shutter" data-shutter>
-            {img(R, "salidas", sizes="(max-width: 860px) 70vw, 34vw")}
-            <figcaption class="small soft">Tablero de salidas, aeropuerto de Melbourne.</figcaption>
-          </figure>
-          <div class="axis__main" data-reveal>
-            <p class="rows__label">Estados Unidos</p>
-            <div class="rows">{us_rows}</div>
-            <p class="rows__label rows__group">Turismo</p>
-            <div class="rows">{other_rows}</div>
-            <p style="margin-top:2rem"><a class="more" href="{R}servicios/">Ver servicios especializados {ARROW}</a></p>
-          </div>
-        </div>
+        <div class="countries" data-reveal>{country_cards}</div>
+        <p style="margin-top:2.5rem"><a class="more" href="{R}servicios/">Ver servicios especializados {ARROW}</a></p>
       </div>
     </section>
 
@@ -723,7 +738,7 @@ def home(R):
         </div>
         <div class="mosaic">
           <figure class="mosaic__photo shutter" data-shutter>
-            {img(R, "sellos", sizes="(max-width: 860px) 100vw, 64vw")}
+            {img(R, "documentos", sizes="(max-width: 860px) 100vw, 64vw")}
             <figcaption class="mosaic__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide únicamente el consulado: nadie puede garantizarla.</figcaption>
           </figure>
           <div class="mosaic__side" data-reveal>
@@ -760,74 +775,73 @@ ORG_LD = {
 # Nosotros
 # ---------------------------------------------------------------------------
 def nosotros(R):
-    semana = (f'<p style="margin-top:1.5rem"><a class="more" href="{SEMANA_URL}" target="_blank" rel="noopener">Leer el artículo en Semana {ARROW}</a></p>'
+    semana = (f'<a class="more" href="{SEMANA_URL}" target="_blank" rel="noopener">Leer el artículo en Semana {ARROW}</a>'
               if SEMANA_URL else '')
     return f'''
     {inner_hero(R, [("nosotros/", "Nosotros")], ["Asesores de visas", "en Bogotá"],
     "Somos una empresa privada de asesoría migratoria con credencial de cooperación internacional. Preparamos solicitudes de visa con información clara y acompañamiento real.",
-    side=f"<span>+2.000 trámites asesorados</span><span>6 años de experiencia</span><span>{ADDRESS}</span>",
     actions=f'<a class="btn btn--primary" href="{wa("Hola, quiero hablar con un asesor.")}" target="_blank" rel="noopener" data-track="whatsapp">Hablar con un asesor</a>',
     photo="bogota")}
 
     <section class="section" aria-labelledby="historia">
-      <div class="wrap split">
-        <div data-reveal><h2 class="head" id="historia">Nuestra historia</h2><p class="soft">Seis años preparando visas desde Bogotá, casi siempre por recomendación.</p></div>
-        <div class="prose" data-reveal>
-          <p>Empezamos en Bogotá con una idea sencilla: que pedir una visa no dependiera de la suerte ni de tramitadores sin respaldo. Desde entonces hemos acompañado más de 2.000 trámites, y la mayoría de las personas que nos escriben llegan recomendadas por alguien a quien ya ayudamos.</p>
-          <p>Con el tiempo nuestro trabajo pasó de los formularios a la gerencia de procesos migratorios: casos de primera vez, renovaciones, visas revocadas y pasaportes perdidos, y una relación de trabajo con organismos internacionales que nos exige el mismo rigor en cada solicitud.</p>
+      <div class="wrap story">
+        <div class="story__text" data-reveal>
+          <h2 class="head" id="historia">Nuestra historia</h2>
+          <p class="lead">Empezamos en Bogotá con una idea sencilla: que pedir una visa no dependiera de la suerte ni de tramitadores sin respaldo.</p>
+          <p>Desde entonces hemos acompañado más de 2.000 trámites, y la mayoría de las personas que nos escriben llegan recomendadas por alguien a quien ya ayudamos. Con el tiempo nuestro trabajo pasó de los formularios a la gerencia de procesos migratorios: primeras solicitudes, renovaciones, visas revocadas y pasaportes perdidos.</p>
           <p>Hoy atendemos en nuestra oficina de la Carrera 45 y por WhatsApp a personas de todo el país.</p>
         </div>
+        <dl class="stats" data-reveal>
+          <div><dt>trámites de visa asesorados</dt><dd data-count="2000" data-prefix="+">+2.000</dd></div>
+          <div><dt>años de experiencia</dt><dd data-count="6">6</dd></div>
+          <div><dt>asesores en Bogotá</dt><dd data-count="4">4</dd></div>
+        </dl>
       </div>
-      <div class="wrap" style="margin-top:clamp(3rem,6vw,5rem)">
+      <div class="wrap" style="margin-top:clamp(3.5rem,7vw,6rem)">
         <figure class="photo-pair">
-          <div class="shutter" data-shutter>{img(R, "salidas", sizes="(max-width: 760px) 100vw, 58vw")}</div>
-          <div class="shutter" data-shutter>{img(R, "sellos", sizes="(max-width: 760px) 100vw, 40vw")}</div>
+          <div class="shutter" data-shutter>{img(R, "documentos", sizes="(max-width: 760px) 100vw, 58vw")}</div>
+          <div class="shutter" data-shutter>{img(R, "salidas", sizes="(max-width: 760px) 100vw, 40vw")}</div>
         </figure>
       </div>
     </section>
 
     <section class="section section--navy on-navy" aria-labelledby="cooperacion">
-      <div class="wrap split">
-        <div data-reveal><h2 class="head" id="cooperacion">Cooperación internacional</h2><p class="soft">Nuestro respaldo no está en las promesas sino en con quién trabajamos.</p></div>
-        <ul class="milestones" data-reveal>
-          <li><strong>Credencial de cooperación internacional</strong><span class="soft">Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</span></li>
-          <li><strong>Asesoría a jueces de inmigración</strong><span class="soft">Nuestra gerencia ha prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</span></li>
-          <li><strong>Encuentros sobre migración</strong><span class="soft">Participamos en espacios sobre migración en América Latina y el Caribe junto a representantes de embajadas.</span></li>
-          <li><strong>No somos agencia de viajes</strong><span class="soft">Por eso no tenemos RNT: nuestro trabajo es la asesoría migratoria, no la venta de viajes.</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="prensa">
-      <div class="wrap split">
-        <div data-reveal><h2 class="head" id="prensa">En la prensa</h2></div>
-        <div data-reveal>
-          <p class="quote">La revista Semana publicó un artículo sobre nuestra labor de asesoría migratoria en Nueva York.</p>
-          {semana}
+      <div class="wrap">
+        <div class="coop__head" data-reveal>
+          <h2 class="head" id="cooperacion">Cooperación internacional</h2>
+          <p class="lead soft">Nuestro respaldo no está en las promesas sino en con quién trabajamos.</p>
+        </div>
+        <div class="coop" data-reveal>
+          <div class="coop__item"><h3>Credencial de cooperación internacional</h3><p>Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</p></div>
+          <div class="coop__item"><h3>Asesoría a jueces de inmigración</h3><p>Nuestra gerencia ha prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</p></div>
+          <div class="coop__item"><h3>Encuentros sobre migración</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe junto a representantes de embajadas.</p></div>
+          <div class="coop__item"><h3>No somos agencia de viajes</h3><p>Por eso no tenemos RNT: nuestro trabajo es la asesoría migratoria, no la venta de viajes.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section section--tone" aria-labelledby="equipo">
-      <div class="wrap split">
-        <div data-reveal><h2 class="head" id="equipo">Un equipo de cuatro asesores</h2></div>
-        <div class="prose" data-reveal>
+    <section class="section" aria-label="Prensa y equipo">
+      <div class="wrap duo" data-reveal>
+        <article class="duo__card duo__card--press">
+          <h2 class="title" id="prensa">En la prensa</h2>
+          <p class="quote">La revista Semana publicó un artículo sobre nuestra labor de asesoría migratoria en Nueva York.</p>
+          {semana}
+        </article>
+        <article class="duo__card duo__card--team on-navy">
+          <h2 class="title" id="equipo">Un equipo de cuatro asesores</h2>
           <p>Por seguridad, y siguiendo las recomendaciones de las embajadas, no publicamos fotografías del equipo. Te atendemos con nombre propio por WhatsApp y en la oficina.</p>
           <ul>
             <li>Te decimos con claridad qué puede hacer una asesoría y qué decide el consulado.</li>
             <li>Revisamos cada documento antes de que lo presentes.</li>
             <li>Respondemos por WhatsApp en cada etapa del trámite.</li>
           </ul>
-        </div>
+        </article>
       </div>
     </section>
 {close_band(R)}
 '''
 
 
-# ---------------------------------------------------------------------------
-# Servicios
-# ---------------------------------------------------------------------------
 def servicios(R):
     us_list = ''.join(f'<span>{s["name"]}</span>' for s in US_SUBS)
     tiles = [f'''<a class="dest dest--us" href="{R}servicios/visa-estados-unidos/">
@@ -986,7 +1000,7 @@ def blog_index(R):
         <div class="post-grid" style="margin-top:clamp(2.5rem,4vw,3.5rem)" data-posts data-reveal>{cards}</div>
       </div>
     </section>
-{close_band(R, "¿Leíste la guía y quieres que revisemos tu caso? Escríbenos.")}
+{close_band(R, "¿Quieres que revisemos tu caso?")}
 '''
 
 
@@ -1067,16 +1081,7 @@ def contacto(R):
         </div>
       </div>
     </section>
-    <section class="section section--tone" aria-labelledby="ciudad">
-      <div class="wrap">
-        <div class="blog-home__head" data-reveal><h2 class="head" id="ciudad">Te atendemos en Bogotá</h2><p class="soft" style="max-width:44ch">Presencialmente en la oficina o por WhatsApp desde cualquier ciudad de Colombia.</p></div>
-        <figure class="photo-pair">
-          <div class="shutter" data-shutter>{img(R, "bogota", sizes="(max-width: 760px) 100vw, 58vw")}</div>
-          <div class="shutter" data-shutter>{img(R, "taxi", sizes="(max-width: 760px) 100vw, 40vw")}</div>
-        </figure>
-      </div>
-    </section>
-{close_band(R, "Cuéntanos por WhatsApp tu nombre y el país al que viajas.")}
+{close_band(R, "Empecemos tu trámite hoy")}
 '''
 
 
@@ -1158,7 +1163,7 @@ def creditos(R):
         rows.append(f'''<li class="credit">{img(R, key, sizes="160px", eager=True)}<div><strong>{esc(name)}</strong>
               <span>{esc(c["creator"])} · <a href="{c["licenseUrl"]}" target="_blank" rel="noopener">{c["license"]}</a> · <a href="{c["page"]}" target="_blank" rel="noopener">Ver la fuente</a></span></div></li>''')
     return f'''
-    {inner_hero(R, [("creditos/", "Créditos")], None, "Las fotografías de este sitio vienen de colecciones abiertas y se usan según su licencia. Muestran los destinos y la ciudad; no son fotos de nuestra oficina ni de nuestros clientes.", h1="Créditos de fotografías", photo="salidas")}
+    {inner_hero(R, [("creditos/", "Créditos")], None, "Las fotografías de destinos y de Bogotá vienen de colecciones abiertas y se usan según su licencia. Las imágenes de viajeros y documentos son ilustrativas, generadas con inteligencia artificial: no muestran clientes reales ni a nuestro equipo.", h1="Créditos de fotografías", photo="salidas")}
     <section class="section section--tone">
       <div class="wrap"><ul class="credits" data-reveal>{"".join(rows)}</ul></div>
     </section>
