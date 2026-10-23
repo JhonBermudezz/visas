@@ -43,7 +43,7 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 ## Diseño
 
 - Colores tomados del logo: azul rey `#1438A6` y rojo `#C81E2B`, sobre un azul marino institucional `#0C1F4D` y un fondo gris muy claro `#F5F6F8`.
-- Tipografía: Geist en todo el sitio, con títulos grandes y apretados.
+- Tipografía: Schibsted Grotesk en todo el sitio (se cambió Geist porque el detector de impeccable la marca como fuente sobreusada en sitios hechos con IA).
 - Cabeceras a pantalla completa con foto y velo azul marino, botones tipo píldora y esquinas suaves en fotos y bloques.
 - Movimiento: carrusel con barras de progreso, fotos de cabecera que se desplazan más lento que la página, cifras que cuentan al aparecer y entradas escalonadas.
 

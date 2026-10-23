@@ -33,7 +33,7 @@ SEMANA_URL = 'https://www.semana.com/mundo/noticias-estados-unidos/articulo/migr
 MAP_QUERY = 'Carrera 45, Bogotá, Colombia'
 YEAR = date.today().year
 
-FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap'
+FONTS = 'https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap'
 FLAGS = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css'
 
 
@@ -124,7 +124,7 @@ US_SUBS = [
                  'Soportes de arraigo: certificado laboral o de ingresos, extractos bancarios, propiedades o estudios.',
                  'Información de tus viajes anteriores.',
                  'Itinerario tentativo del viaje.'],
-        'times': 'La espera para la cita la define la Embajada y cambia durante el año; al empezar te mostramos la disponibilidad del momento. La tarifa consular se paga directamente al Departamento de Estado y nuestro honorario se paga aparte.',
+        'times': 'La espera para la cita la define la Embajada y cambia durante el año; al empezar te mostramos la disponibilidad del momento. La tarifa consular se paga al Departamento de Estado y nuestro honorario se paga aparte.',
         'note': 'Ningún asesor puede garantizar la aprobación. En la entrevista cuenta que tus respuestas sean claras y coincidan con lo que declaraste en el formulario.',
     },
     {
@@ -142,7 +142,7 @@ US_SUBS = [
                  'Fotografía digital reciente.',
                  'Soportes de arraigo actualizados.',
                  'Información de los viajes que hiciste con la visa anterior.'],
-        'times': 'Los tiempos dependen de la modalidad que te corresponda y de la agenda de la Embajada. La tarifa consular se paga directamente al Departamento de Estado.',
+        'times': 'Los tiempos dependen de la modalidad que te corresponda y de la agenda de la Embajada. La tarifa consular se paga al Departamento de Estado.',
         'note': 'Las condiciones para renovar sin entrevista las fija el Departamento de Estado y han cambiado varias veces. Siempre las validamos con la información oficial del momento.',
     },
     {
@@ -160,8 +160,8 @@ US_SUBS = [
                  'Pasaporte con la visa revocada.',
                  'Historial de viajes a Estados Unidos.',
                  'Soportes de arraigo actualizados.'],
-        'times': 'Primero analizamos el caso; el tiempo de la nueva solicitud depende de la agenda de la Embajada. La tarifa consular se paga directamente al Departamento de Estado.',
-        'note': 'Una visa revocada no se reactiva: hay que presentar una solicitud nueva. Si la revocatoria tiene que ver con un asunto migratorio o judicial, te lo decimos con claridad y, si hace falta, te remitimos a un abogado.',
+        'times': 'Primero analizamos el caso; el tiempo de la nueva solicitud depende de la agenda de la Embajada. La tarifa consular se paga al Departamento de Estado.',
+        'note': 'Una visa revocada no se reactiva: hay que presentar una solicitud nueva. Si la revocatoria tiene que ver con un asunto migratorio o judicial, te lo decimos y, si hace falta, te remitimos a un abogado.',
     },
     {
         'slug': 'visa-perdida', 'name': 'Visa perdida o robada', 'menu': 'Visa perdida o robada',
@@ -214,7 +214,7 @@ COUNTRIES = [
         'docs': ['Pasaporte vigente.', 'Extractos bancarios y soportes de ingresos.', 'Certificado laboral o de estudios.',
                  'Historial de viajes.', 'Itinerario y, si aplica, carta de invitación.'],
         'times': 'El Gobierno de Canadá publica los tiempos de procesamiento vigentes y los actualiza con frecuencia. Las tarifas de visa y biometría se pagan en línea al Gobierno de Canadá.',
-        'note': 'La solicitud se evalúa por escrito: los soportes tienen que contar tu caso sin que nadie los explique. Por eso los revisamos uno por uno.',
+        'note': 'En la mayoría de los casos no hay entrevista y el oficial decide con lo que lee. Por eso revisamos cada soporte antes de cargarlo.',
     },
     {
         'slug': 'visa-australia', 'country': 'Australia', 'flag': 'au', 'photo': 'sidney', 'cls': 'au',
@@ -462,7 +462,7 @@ def footer(R):
           <div><h2>Legal</h2><ul>{legal}</ul></div>
         </div>
       </div>
-      <p class="footer__notice"><strong>Aviso importante.</strong> Somos una empresa privada de asesoría migratoria. No somos una embajada, un consulado ni una entidad del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
+      <p class="footer__notice"><strong>Aviso importante.</strong> Somos una empresa privada de asesoría migratoria. No somos una embajada, un consulado ni una entidad del Gobierno. Las tarifas consulares se pagan a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
       <div class="footer__legal">
         <p>© {YEAR} {BRAND}. Pagos en línea con ePayco.</p>
         <a class="to-top" href="#top" aria-label="Volver arriba" title="Volver arriba">{icon("arrow")}</a>
@@ -533,7 +533,7 @@ def close_band(R, line='Hablemos de tu visa', photo='entrega'):
               <a class="btn btn--wa" href="{wa("Hola, quiero que revisen mi caso de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
               <a class="btn btn--line" href="tel:{PHONE_TEL}">{icon("phone")}Llamar</a>
             </div>
-            <p class="cta-card__meta">{ADDRESS} · {HOURS}</p>
+            <p class="cta-card__meta">{ADDRESS}. {HOURS}</p>
           </div>
           <figure class="cta-card__photo">{img(R, photo, sizes="(max-width: 860px) 100vw, 45vw", alt=PHOTOS[photo][0])}</figure>
         </div>
@@ -548,11 +548,10 @@ def press_section(R):
       <div class="wrap press__grid" data-reveal>
         <div>
           <h2 class="head" id="prensa">En la prensa</h2>
-          <p class="lead soft">Nuestro trabajo en migración ha llegado a espacios internacionales.</p>
         </div>
         <article class="press__card">
           <blockquote class="press__title">«Migración, pobreza y desigualdad: los retos que discutirán líderes mundiales en Nueva York»</blockquote>
-          <p class="press__source">Revista Semana · 1 de julio de 2026</p>
+          <p class="press__source">Revista Semana, 1 de julio de 2026</p>
           <p>Semana destacó la participación de Steven Gutiérrez, especialista internacional en regulación migratoria, en el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026 en Nueva York, donde abordó si la migración puede convertirse en un motor de desarrollo sostenible.</p>
           {link}
         </article>
@@ -716,7 +715,7 @@ def home(R):
             <div class="post-lead__img">{img(R, lead_post["image"], sizes="(max-width: 860px) 100vw, 56vw", alt=lead_post.get("image_alt"))}</div>
             <h3>{lead_post["h1"]}</h3>
             <p>{lead_post["desc"]}</p>
-            <p class="post-meta"><span class="tag">{lead_post["category"]}</span><span>Actualizado el {fdate(lead_post["date"])} · {lead_post["read"]} min de lectura</span></p>
+            <p class="post-meta"><span class="tag">{lead_post["category"]}</span><span>Actualizado el {fdate(lead_post["date"])}</span><span>{lead_post["read"]} min de lectura</span></p>
           </a>
           <div class="post-list" data-reveal>
             {post_rows}
@@ -729,15 +728,15 @@ def home(R):
       <div class="wrap about">
         <figure class="about__media" data-reveal>
           <div class="about__photo">{img(R, "documentos", sizes="(max-width: 860px) 100vw, 50vw")}</div>
-          <figcaption class="about__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide únicamente el consulado: nadie puede garantizarla.</figcaption>
+          <figcaption class="about__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide el consulado: nadie puede garantizarla.</figcaption>
         </figure>
         <div class="about__text" data-reveal>
           <h2 class="head" id="gerencia">Gerencia de visas y procesos migratorios</h2>
-          <p class="lead">Somos un equipo de cuatro asesores en Bogotá. Llevamos más de seis años preparando solicitudes de visa con información clara y acompañamiento real.</p>
+          <p class="lead">Somos un equipo de cuatro asesores en Bogotá. Llevamos más de seis años preparando solicitudes de visa: revisamos cada documento y te acompañamos por WhatsApp.</p>
           <ul class="checks">
             <li><strong>Credencial de cooperación internacional</strong>Colaboramos con la Organización Internacional para las Migraciones y con embajadas.</li>
             <li><strong>Asesoría a jueces de inmigración</strong>Nuestra gerencia ha asesorado a jueces de inmigración en cortes de Estados Unidos.</li>
-            <li><strong>Asesoría migratoria, no venta de viajes</strong>No somos agencia de viajes; por eso el RNT no aplica a nuestro servicio.</li>
+            <li><strong>El RNT no aplica</strong>Ese registro es para agencias de viajes. Nosotros hacemos asesoría migratoria.</li>
           </ul>
           <div class="actions"><a class="btn btn--line" href="{R}nosotros/">Conoce nuestra historia</a></div>
         </div>
@@ -755,7 +754,7 @@ def home(R):
           <fieldset><legend>¿A qué país viajas?</legend><div class="chips">{chips_dest}</div></fieldset>
           <fieldset><legend>¿Qué trámite necesitas?</legend><div class="chips" data-tramites>{chips_proc}</div></fieldset>
           <div class="planner__result" aria-live="polite">
-            <h3 data-title>Estados Unidos · {first["label"]}</h3>
+            <h3 data-title>Estados Unidos, {first["label"].lower()}</h3>
             <ul class="planner__docs" data-docs>{docs0}</ul>
             <p class="planner__note">Es una lista de referencia. Según tu caso te pediremos más soportes o menos.</p>
             <div class="actions">
@@ -790,7 +789,7 @@ def nosotros(R):
               if SEMANA_URL else '')
     return f'''
     {inner_hero(R, [("nosotros/", "Nosotros")], ["Asesores de visas", "en Bogotá"],
-    "Somos una empresa privada de asesoría migratoria con credencial de cooperación internacional. Preparamos solicitudes de visa con información clara y acompañamiento real.",
+    "Somos una empresa privada de asesoría migratoria con credencial de cooperación internacional. Revisamos tu caso, preparamos los documentos y te acompañamos hasta la cita.",
     actions=f'<a class="btn btn--primary" href="{wa("Hola, quiero hablar con un asesor.")}" target="_blank" rel="noopener" data-track="whatsapp">Hablar con un asesor</a>',
     photo="bogota")}
 
@@ -798,8 +797,8 @@ def nosotros(R):
       <div class="wrap story">
         <div class="story__text" data-reveal>
           <h2 class="head" id="historia">Nuestra historia</h2>
-          <p class="lead">Empezamos en Bogotá con una idea sencilla: que pedir una visa no dependiera de la suerte ni de tramitadores sin respaldo.</p>
-          <p>Desde entonces hemos acompañado más de 2.000 trámites, y la mayoría de las personas que nos escriben llegan recomendadas por alguien a quien ya ayudamos. Con el tiempo nuestro trabajo pasó de los formularios a la gerencia de procesos migratorios: primeras solicitudes, renovaciones, visas revocadas y pasaportes perdidos.</p>
+          <p class="lead">Abrimos en Bogotá hace más de seis años para asesorar solicitudes de visa con información verificada.</p>
+          <p>Desde entonces hemos acompañado más de 2.000 trámites, y la mayoría de las personas que nos escriben llegan recomendadas por alguien a quien ya ayudamos. Hoy atendemos primeras solicitudes, renovaciones, visas revocadas y visas perdidas.</p>
           <p>Hoy atendemos en nuestra oficina de la Carrera 45 y por WhatsApp a personas de todo el país.</p>
         </div>
         <dl class="stats" data-reveal>
@@ -820,13 +819,13 @@ def nosotros(R):
       <div class="wrap">
         <div class="coop__head" data-reveal>
           <h2 class="head" id="cooperacion">Cooperación internacional</h2>
-          <p class="lead soft">Nuestro respaldo no está en las promesas sino en con quién trabajamos.</p>
+          <p class="lead soft">Trabajamos con organismos internacionales y con embajadas.</p>
         </div>
         <div class="coop" data-reveal>
           <div class="coop__item"><h3>Credencial de cooperación internacional</h3><p>Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</p></div>
           <div class="coop__item"><h3>Asesoría a jueces de inmigración</h3><p>Nuestra gerencia ha prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</p></div>
           <div class="coop__item"><h3>Foros internacionales</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe, como el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026 en Nueva York.</p></div>
-          <div class="coop__item"><h3>No somos agencia de viajes</h3><p>Por eso no tenemos RNT: nuestro trabajo es la asesoría migratoria, no la venta de viajes.</p></div>
+          <div class="coop__item"><h3>El RNT no aplica</h3><p>Ese registro es para agencias de viajes. Nosotros hacemos asesoría migratoria.</p></div>
         </div>
       </div>
     </section>
@@ -838,9 +837,9 @@ def nosotros(R):
           <p>Por seguridad, y siguiendo las recomendaciones de las embajadas, no publicamos fotografías del equipo. Te atendemos con nombre propio por WhatsApp y en la oficina.</p>
         </div>
         <ul class="duo__card duo__card--team on-navy checks checks--light">
-          <li><strong>Claridad</strong>Te decimos qué puede hacer una asesoría y qué decide el consulado.</li>
-          <li><strong>Revisión</strong>Revisamos cada documento antes de que lo presentes.</li>
-          <li><strong>Seguimiento</strong>Respondemos por WhatsApp en cada etapa del trámite.</li>
+          <li>Te decimos qué puede hacer una asesoría y qué decide el consulado.</li>
+          <li>Revisamos cada documento antes de que lo presentes.</li>
+          <li>Te respondemos por WhatsApp en cada etapa del trámite.</li>
         </ul>
       </div>
     </section>
@@ -874,7 +873,7 @@ def servicios(R):
 {docs_section(R)}
     <section class="section section--tone" aria-labelledby="pago">
       <div class="wrap cta-band" data-reveal>
-        <div><h2 class="head" id="pago">Pago seguro con ePayco</h2><p class="soft">Pagas la asesoría en línea, con los medios que ofrece ePayco. Las tarifas consulares no las cobramos nosotros: se pagan directamente a cada entidad.</p></div>
+        <div><h2 class="head" id="pago">Pago seguro con ePayco</h2><p class="soft">Pagas la asesoría en línea, con los medios que ofrece ePayco. Las tarifas consulares no las cobramos nosotros: se pagan a cada entidad.</p></div>
         <div class="actions">
           <a class="btn btn--primary" href="{wa("Hola, no sé qué visa necesito. ¿Me ayudan?")}" target="_blank" rel="noopener" data-track="whatsapp">¿No sabes qué visa necesitas?</a>
         </div>
@@ -984,7 +983,7 @@ def blog_index(R):
     cards = ''.join(post_card(R, p) for p in POSTS)
     return f'''
     {inner_hero(R, [("blog/", "Blog")], ["Guías de visas", "para colombianos"],
-    "Requisitos, tiempos y pasos del trámite, explicados con claridad y actualizados cuando cambian las reglas.",
+    "Requisitos, tiempos y pasos del trámite. Actualizamos cada guía cuando cambian las reglas.",
     side="<span>Escritas por nuestra gerencia de visas</span>", photo="sellos")}
 
     <section class="section" aria-labelledby="destacado">
@@ -995,7 +994,7 @@ def blog_index(R):
         <div data-reveal style="align-self:end">
           <h2 class="head" id="destacado" style="font-size:clamp(1.75rem,1.2rem + 1.6vw,2.75rem)">{lead["h1"]}</h2>
           <p style="margin-top:1rem">{lead["desc"]}</p>
-          <p class="post-meta"><span class="tag">{lead["category"]}</span><span>Actualizado el {fdate(lead["date"])} · {lead["read"]} min de lectura</span></p>
+          <p class="post-meta"><span class="tag">{lead["category"]}</span><span>Actualizado el {fdate(lead["date"])}</span><span>{lead["read"]} min de lectura</span></p>
           <div class="actions" style="margin-top:1.75rem"><a class="btn btn--primary" href="{R}blog/{lead["slug"]}/">Leer la guía</a></div>
         </div>
       </div>
@@ -1007,7 +1006,7 @@ def blog_index(R):
         <div class="post-grid" style="margin-top:clamp(2.5rem,4vw,3.5rem)" data-posts data-reveal>{cards}</div>
       </div>
     </section>
-{close_band(R, "¿Quieres que revisemos tu caso?")}
+{close_band(R, "Revisemos tu caso")}
 '''
 
 
@@ -1019,7 +1018,7 @@ def article(R, p):
     return f'''
     <article>
     {inner_hero(R, [("blog/", "Blog"), (f"blog/{p['slug']}/", p["h1"])], None,
-    f'<span class="byline">Por <strong>Gerencia de visas, {BRAND}</strong> · Actualizado el {fdate(p["date"])}</span>',
+    f'<span class="byline">Por <strong>Gerencia de visas, {BRAND}</strong> , actualizado el {fdate(p["date"])}</span>',
     side=f'<span class="tag">{p["category"]}</span><span>{p["read"]} min de lectura</span>', h1=p["h1"], photo=p["image"], photo_alt=p.get("image_alt"))}
       <section class="section">
         <div class="wrap doc-layout">
@@ -1062,9 +1061,9 @@ def contacto(R):
       <div class="wrap axis">
         <div class="axis__side"><h2 class="head" id="canales">Canales de atención</h2></div>
         <div class="axis__main channels" data-reveal>
-          <div class="channel"><h3>WhatsApp</h3><p>{PHONE} · el canal más rápido para empezar tu trámite.</p><a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir ahora</a></div>
-          <div class="channel"><h3>Teléfono</h3><p>{PHONE} · {HOURS.lower()}</p><a class="btn btn--line" href="tel:{PHONE_TEL}">Llamar</a></div>
-          <div class="channel"><h3>Correo</h3><p>{EMAIL} · para enviar documentos o radicar una PQRS.</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
+          <div class="channel"><h3>WhatsApp</h3><p>{PHONE}. El canal más rápido para empezar tu trámite.</p><a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir ahora</a></div>
+          <div class="channel"><h3>Teléfono</h3><p>{PHONE}. {HOURS}</p><a class="btn btn--line" href="tel:{PHONE_TEL}">Llamar</a></div>
+          <div class="channel"><h3>Correo</h3><p>{EMAIL}. Para enviar documentos o radicar una PQRS.</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
         </div>
       </div>
     </section>
@@ -1109,7 +1108,7 @@ LEGAL_BODY = {
       <h2>Tus derechos</h2>
       <p>Según la Ley 1581 de 2012 puedes conocer, actualizar, rectificar y suprimir tus datos, revocar la autorización y presentar quejas ante la Superintendencia de Industria y Comercio. Para ejercerlos escribe a {EMAIL}.</p>
       <h2>Datos sensibles</h2>
-      <p>Algunos trámites requieren información sensible. No estás obligado a entregarla; si decides hacerlo, la usaremos únicamente para tu solicitud.</p>''',
+      <p>Algunos trámites requieren información sensible. No estás obligado a entregarla; si decides hacerlo, la usaremos para tu solicitud.</p>''',
     'politica-de-manejo-de-casos': '''
       <h2>Qué hacemos</h2>
       <p>Revisamos tu caso, te indicamos los requisitos vigentes, organizamos y revisamos tus documentos, diligenciamos los formularios con la información que nos entregas, programamos las citas y te preparamos para la entrevista cuando aplica.</p>
@@ -1123,7 +1122,7 @@ LEGAL_BODY = {
       <h2>El servicio</h2>
       <p>{BRAND} presta servicios privados de asesoría en solicitudes de visa. No es una entidad oficial ni representa a ningún gobierno o consulado.</p>
       <h2>Honorarios y tarifas oficiales</h2>
-      <p>El valor de la asesoría se informa antes de empezar y se paga a través de ePayco o de los medios que indiquemos. Las tarifas consulares, de visa o de biometría se pagan directamente a cada entidad y no están incluidas en nuestros honorarios.</p>
+      <p>El valor de la asesoría se informa antes de empezar y se paga a través de ePayco o de los medios que indiquemos. Las tarifas consulares, de visa o de biometría se pagan a cada entidad y no están incluidas en nuestros honorarios.</p>
       <h2>Responsabilidades</h2>
       <p>Nos comprometemos a prestar el servicio con diligencia. El cliente se compromete a entregar información veraz y completa y a asistir a las citas programadas.</p>
       <h2>Uso del sitio</h2>
@@ -1132,14 +1131,14 @@ LEGAL_BODY = {
       <h2>Cuándo hay reembolso</h2>
       <ul><li>Si cancelas antes de que empecemos a trabajar en tu caso, devolvemos el valor pagado menos los costos de la transacción.</li><li>Si no podemos prestar el servicio por una causa atribuible a nosotros.</li></ul>
       <h2>Cuándo no hay reembolso</h2>
-      <ul><li>Cuando la visa es negada: la decisión es del consulado y el servicio de asesoría ya se prestó.</li><li>Sobre las tarifas consulares, que se pagan directamente a cada entidad.</li></ul>
+      <ul><li>Cuando la visa es negada: la decisión es del consulado y el servicio de asesoría ya se prestó.</li><li>Sobre las tarifas consulares, que se pagan a cada entidad.</li></ul>
       <h2>Cómo pedirlo</h2>
       <p>Escríbenos por correo o radica una PQRS indicando tu nombre, el trámite y el comprobante de pago. Respondemos en un máximo de 15 días hábiles.</p>''',
     'pqrs': f'''
       <h2>Qué puedes radicar</h2>
       <p>Peticiones, quejas, reclamos y sugerencias sobre nuestro servicio, el tratamiento de tus datos o un pago.</p>
       <h2>Cómo radicarla</h2>
-      <ul><li>Por correo a <a href="mailto:{EMAIL}">{EMAIL}</a>, con el asunto «PQRS».</li><li>Por WhatsApp al {PHONE}.</li><li>En la oficina: {ADDRESS}, {HOURS.lower()}.</li></ul>
+      <ul><li>Por correo a <a href="mailto:{EMAIL}">{EMAIL}</a>, con el asunto «PQRS».</li><li>Por WhatsApp al {PHONE}.</li><li>En la oficina: {ADDRESS}, {HOURS.lower()}</li></ul>
       <p>Incluye tu nombre, documento, datos de contacto, el trámite al que se refiere y una descripción de la solicitud.</p>
       <h2>Plazo de respuesta</h2>
       <p>Te confirmamos la recepción el mismo día hábil y respondemos de fondo en un máximo de 15 días hábiles.</p>''',
@@ -1168,7 +1167,7 @@ def creditos(R):
         key = next(v for k, v in CREDIT_KEYS.items() if k in c['file'])
         name = re.sub(r'\s*\(\d+\)$', '', c['title'])
         rows.append(f'''<li class="credit">{img(R, key, sizes="160px", eager=True)}<div><strong>{esc(name)}</strong>
-              <span>{esc(c["creator"])} · <a href="{c["licenseUrl"]}" target="_blank" rel="noopener">{c["license"]}</a> · <a href="{c["page"]}" target="_blank" rel="noopener">Ver la fuente</a></span></div></li>''')
+              <span>{esc(c["creator"])}. Licencia <a href="{c["licenseUrl"]}" target="_blank" rel="noopener">{c["license"]}</a>. <a href="{c["page"]}" target="_blank" rel="noopener">Ver la fuente</a>.</span></div></li>''')
     return f'''
     {inner_hero(R, [("creditos/", "Créditos")], None, "Las fotografías de destinos y de Bogotá vienen de colecciones abiertas y se usan según su licencia. Las imágenes de viajeros y documentos son ilustrativas, generadas con inteligencia artificial: no muestran clientes reales ni a nuestro equipo.", h1="Créditos de fotografías", photo="salidas")}
     <section class="section section--tone">
