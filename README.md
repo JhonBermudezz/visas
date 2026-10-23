@@ -30,7 +30,7 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 
 ## Estructura (según wireframes y la reunión del 16 de octubre)
 
-- **Inicio:** barra superior (ciudad, horario, teléfono, correo, Instagram, TikTok), menú con desplegable de servicios con banderas, carrusel principal (Colombia, Estados Unidos, más destinos), franja de respaldo y aviso de independencia, procesos de visa internacional, blog como tercera sección, armador de consulta por WhatsApp, gerencia de visas y procesos migratorios y cierre de contacto.
+- **Inicio:** menú con desplegable de servicios con banderas, carrusel principal (Colombia, Estados Unidos, más destinos), franja de respaldo y aviso de independencia, procesos de visa internacional, blog como tercera sección, armador de consulta por WhatsApp, gerencia de visas y procesos migratorios y cierre de contacto.
 - **Servicios:** página "Servicios especializados" con mosaico de destinos, documentos y políticas en lugar de tablas comparativas, y pago con ePayco.
   - Estados Unidos: primera vez, renovación, visa revocada, visa perdida o robada.
   - Reino Unido, Canadá, Australia y Malasia: turismo.
@@ -43,7 +43,13 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 ## Diseño
 
 - Colores tomados del logo: azul rey `#1438A6` y rojo `#C81E2B`, sobre un azul marino institucional `#0C1F4D` y un fondo gris muy claro `#F5F6F8`.
-- Tipografía: Libre Franklin (títulos e interfaz) y Source Serif 4 (lectura).
+- Tipografía: Geist en todo el sitio, con títulos grandes y apretados.
+- Cabeceras a pantalla completa con foto y velo azul marino, botones tipo píldora y esquinas suaves en fotos y bloques.
+- Movimiento: carrusel con barras de progreso, fotos de cabecera que se desplazan más lento que la página, cifras que cuentan al aparecer y entradas escalonadas.
+
+### Versión anterior
+
+La primera versión (clásica, con serifa) quedó guardada como copia fija en `legacy/`, visible en https://jhonbermudezz.github.io/visas/legacy/ y fuera de los buscadores. No se regenera con el script.
 - Fotografías de colecciones abiertas (Wikimedia Commons y Openverse). Los créditos están en `/creditos/` y en `assets/credits.json`.
 
 ## Pendiente antes de publicar

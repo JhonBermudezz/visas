@@ -199,3 +199,48 @@ document.addEventListener('click', (e) => {
   const a = e.target.closest('[data-track], [data-pay]');
   if (a && typeof window.gtag === 'function') window.gtag('event', a.dataset.track ? 'clic_whatsapp' : 'clic_pagar', { link_url: a.href });
 });
+
+/* Foto de cabecera que se desplaza más lento que la página */
+(() => {
+  const layers = [...document.querySelectorAll('[data-parallax]')];
+  if (!layers.length || reduced) return;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    layers.forEach((el) => {
+      const box = el.parentElement.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > innerHeight) return;
+      const shift = Math.min(Math.max(-box.top, 0), box.height) * 0.28;
+      el.style.transform = `translate3d(0, ${shift}px, 0) scale(1.04)`;
+    });
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+})();
+
+/* Cifras que cuentan al aparecer */
+(() => {
+  const nums = document.querySelectorAll('[data-count]');
+  if (!nums.length || reduced || !('IntersectionObserver' in window)) return;
+  const fmt = (n) => n.toLocaleString('es-CO');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      const el = en.target;
+      const end = Number(el.dataset.count);
+      const pre = el.dataset.prefix || '';
+      const suf = el.dataset.suffix || '';
+      const t0 = performance.now();
+      const dur = 1400;
+      const step = (t) => {
+        const k = Math.min((t - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - k, 4);
+        el.textContent = pre + fmt(Math.round(end * eased)) + suf;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.6 });
+  nums.forEach((n) => io.observe(n));
+})();

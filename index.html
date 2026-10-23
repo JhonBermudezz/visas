@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>document.documentElement.classList.add('js')</script>
@@ -40,17 +40,6 @@
   <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.8" y="5.5" width="18.4" height="13" rx="1.5"/><path d="M2.8 9.8h18.4M6.5 15h4"/></g></symbol>
 </svg>
   <a class="skip" href="#main">Saltar al contenido</a>
-  <div class="topbar">
-    <div class="wrap topbar__inner">
-      <p class="topbar__info"><span>Bogotá, Colombia</span><span>Lun a vie · 8:00 a 17:00</span></p>
-      <div class="topbar__links">
-        <a href="tel:+573000000000"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"></use></svg>+57 300 000 0000</a>
-        <a class="hide-sm" href="mailto:contacto@visasypasaportes.com.co"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"></use></svg>contacto@visasypasaportes.com.co</a>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ig"></use></svg></a>
-        <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tt"></use></svg></a>
-      </div>
-    </div>
-  </div>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="./" aria-label="Visas y Pasaportes Colombia, inicio"><img src="assets/img/logo.webp" alt="Visas y Pasaportes Colombia" width="640" height="274"></a>
@@ -97,14 +86,12 @@
   </div>
   <main id="main">
     <section class="hero" aria-roledescription="carrusel" aria-label="Presentación" data-hero>
-      <div class="hero__band">
+      <div class="hero__media" data-parallax>
         <div class="hero__img is-active" data-slide-img><img src="assets/img/bogota.webp" srcset="assets/img/bogota-sm.webp 960w, assets/img/bogota.webp 1516w" sizes="100vw" width="1516" height="1137" alt="Cerros orientales de Bogotá con la ciudad al pie" fetchpriority="high"></div><div class="hero__img" data-slide-img><img src="assets/img/capitolio.webp" srcset="assets/img/capitolio-sm.webp 960w, assets/img/capitolio.webp 1920w" sizes="100vw" width="1920" height="681" alt="Fachada oeste del Capitolio de Estados Unidos en Washington D. C." loading="lazy" decoding="async"></div><div class="hero__img" data-slide-img><img src="assets/img/westminster.webp" srcset="assets/img/westminster-sm.webp 960w, assets/img/westminster.webp 1920w" sizes="100vw" width="1920" height="1440" alt="Palacio de Westminster a orillas del Támesis, Londres" loading="lazy" decoding="async"></div>
       </div>
-      <div class="wrap axis hero__body">
-        <div class="axis__side hero__side">
-          <div class="hero__tabs" role="tablist" aria-label="Destinos"><button class="hero__tab" type="button" role="tab" id="tab-0" aria-controls="slide-0" aria-selected="true" tabindex="0"><span class="fi fi-co" aria-hidden="true"></span>Colombia</button><button class="hero__tab" type="button" role="tab" id="tab-1" aria-controls="slide-1" aria-selected="false" tabindex="-1"><span class="fi fi-us" aria-hidden="true"></span>Estados Unidos</button><button class="hero__tab" type="button" role="tab" id="tab-2" aria-controls="slide-2" aria-selected="false" tabindex="-1"><span class="fi fi-gb" aria-hidden="true"></span>Más destinos</button></div>
-        </div>
-        <div class="axis__main">
+      <div class="scrim"></div>
+      <div class="wrap hero__inner">
+        <div class="hero__content">
           <h1 class="display lines"><span class="line"><span data-line style="--i:0">Asesoría de visas</span></span><span class="line"><span data-line style="--i:1">en Colombia</span></span></h1>
           <div class="hero__slides">
             <div class="hero__slide is-active" id="slide-0" role="tabpanel" aria-labelledby="tab-0">
@@ -119,18 +106,19 @@
             </div>
           </div>
           <div class="actions hero__actions">
-            <a class="btn btn--primary" href="#consulta">Solicitar asesoría</a>
-            <a class="btn btn--line" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20visa." target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>Escribir por WhatsApp</a>
+            <a class="btn btn--light" href="#consulta">Solicitar asesoría</a>
+            <a class="btn btn--wa" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20visa." target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>Escribir por WhatsApp</a>
           </div>
         </div>
+        <div class="hero__tabs" role="tablist" aria-label="Destinos"><button class="hero__tab" type="button" role="tab" id="tab-0" aria-controls="slide-0" aria-selected="true" tabindex="0"><span class="fi fi-co" aria-hidden="true"></span>Colombia</button><button class="hero__tab" type="button" role="tab" id="tab-1" aria-controls="slide-1" aria-selected="false" tabindex="-1"><span class="fi fi-us" aria-hidden="true"></span>Estados Unidos</button><button class="hero__tab" type="button" role="tab" id="tab-2" aria-controls="slide-2" aria-selected="false" tabindex="-1"><span class="fi fi-gb" aria-hidden="true"></span>Más destinos</button></div>
       </div>
     </section>
 
     <section class="trust" aria-label="Respaldo">
       <div class="wrap trust__grid" data-reveal>
         <p class="trust__note"><strong>Somos asesores privados, no una entidad oficial.</strong>No somos una embajada ni una oficina del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
-        <p class="fact"><span class="fact__value">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
-        <p class="fact"><span class="fact__value">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
+        <p class="fact"><span class="fact__value" data-count="2000" data-prefix="+">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
+        <p class="fact"><span class="fact__value" data-count="6" data-suffix=" años">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
         <p class="fact"><span class="fact__value">Bogotá</span><span class="fact__label">oficina en la Carrera 45 y atención por WhatsApp</span></p>
       </div>
     </section>
@@ -157,7 +145,7 @@
       </div>
     </section>
 
-    <section class="section section--tone" aria-labelledby="guias">
+    <section class="section section--navy on-navy" aria-labelledby="guias">
       <div class="wrap">
         <div class="blog-home__head" data-reveal>
           <div><h2 class="head" id="guias">Guías y requisitos</h2><p class="soft">Artículos para preparar tu trámite con información verificada.</p></div>

@@ -26,17 +26,14 @@ PHONE_TEL = '+573000000000'                          # pendiente
 WHATSAPP = '573000000000'                            # pendiente, sin + ni espacios
 EMAIL = 'contacto@visasypasaportes.com.co'           # pendiente
 ADDRESS = 'Carrera 45, Bogotá'                       # número exacto pendiente
-CITY = 'Bogotá, Colombia'
 HOURS = 'Lunes a viernes, 8:00 a. m. a 5:00 p. m.'   # pendiente
-HOURS_SHORT = 'Lun a vie · 8:00 a 17:00'
 INSTAGRAM = 'https://www.instagram.com/'             # pendiente
 TIKTOK = 'https://www.tiktok.com/'                   # pendiente
 SEMANA_URL = ''                                      # enlace al artículo de Semana: pendiente
 MAP_QUERY = 'Carrera 45, Bogotá, Colombia'
 YEAR = date.today().year
 
-FONTS = ('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700'
-         '&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap')
+FONTS = 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap'
 FLAGS = 'https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css'
 
 
@@ -392,17 +389,6 @@ def header(R, active):
     return f'''<body>
   {SPRITE}
   <a class="skip" href="#main">Saltar al contenido</a>
-  <div class="topbar">
-    <div class="wrap topbar__inner">
-      <p class="topbar__info"><span>{CITY}</span><span>{HOURS_SHORT}</span></p>
-      <div class="topbar__links">
-        <a href="tel:{PHONE_TEL}">{icon("phone")}{PHONE}</a>
-        <a class="hide-sm" href="mailto:{EMAIL}">{icon("mail")}{EMAIL}</a>
-        <a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>
-        <a href="{TIKTOK}" target="_blank" rel="noopener" aria-label="TikTok">{icon("tt")}</a>
-      </div>
-    </div>
-  </div>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="{R or './'}" aria-label="{BRAND}, inicio"><img src="{R}assets/img/logo.webp" alt="{BRAND}" width="640" height="274"></a>
@@ -511,19 +497,19 @@ def lines(parts, tag='h1', cls='display lines', idattr=''):
 
 
 def inner_hero(R, trail, h1_lines, lead, side='', actions='', photo=None, h1=None, photo_alt=None):
-    band = f'<div class="band">{img(R, photo, eager=True, alt=photo_alt)}</div>\n    ' if photo else ''
-    title = lines(h1_lines) if h1_lines else f'<h1 class="display display--long">{h1}</h1>'
+    media = f'<div class="phero__media" data-parallax>{img(R, photo, eager=True, alt=photo_alt)}</div><div class="scrim"></div>' if photo else ''
+    title = lines(h1_lines) if h1_lines else f'<h1 class="display display--long lines"><span class="line"><span data-line>{h1}</span></span></h1>'
     acts = f'<div class="actions">{actions}</div>' if actions else ''
-    return f'''{band}<section class="page-hero">
-      <div class="wrap">
+    meta = f'<p class="phero__side">{side}</p>' if side else ''
+    return f'''<section class="phero{"" if photo else " phero--plain"}">
+      {media}
+      <div class="wrap phero__inner">
         {crumbs(R, trail)}
-        <div class="axis">
-          <div class="axis__side page-hero__side">{side}</div>
-          <div class="axis__main">
-            {title}
-            <p class="lead">{lead}</p>
-            {acts}
-          </div>
+        <div class="phero__body">
+          {title}
+          <p class="lead">{lead}</p>
+          {acts}
+          {meta}
         </div>
       </div>
     </section>'''
@@ -635,31 +621,30 @@ def home(R):
 
     return f'''
     <section class="hero" aria-roledescription="carrusel" aria-label="Presentación" data-hero>
-      <div class="hero__band">
+      <div class="hero__media" data-parallax>
         {"".join(imgs)}
       </div>
-      <div class="wrap axis hero__body">
-        <div class="axis__side hero__side">
-          <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
-        </div>
-        <div class="axis__main">
+      <div class="scrim"></div>
+      <div class="wrap hero__inner">
+        <div class="hero__content">
           {lines(["Asesoría de visas", "en Colombia"])}
           <div class="hero__slides">
             {"".join(slides)}
           </div>
           <div class="actions hero__actions">
-            <a class="btn btn--primary" href="#consulta">Solicitar asesoría</a>
-            <a class="btn btn--line" href="{wa("Hola, quiero información sobre la visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
+            <a class="btn btn--light" href="#consulta">Solicitar asesoría</a>
+            <a class="btn btn--wa" href="{wa("Hola, quiero información sobre la visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
           </div>
         </div>
+        <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
       </div>
     </section>
 
     <section class="trust" aria-label="Respaldo">
       <div class="wrap trust__grid" data-reveal>
         <p class="trust__note"><strong>Somos asesores privados, no una entidad oficial.</strong>No somos una embajada ni una oficina del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
-        <p class="fact"><span class="fact__value">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
-        <p class="fact"><span class="fact__value">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
+        <p class="fact"><span class="fact__value" data-count="2000" data-prefix="+">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
+        <p class="fact"><span class="fact__value" data-count="6" data-suffix=" años">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
         <p class="fact"><span class="fact__value">Bogotá</span><span class="fact__label">oficina en la Carrera 45 y atención por WhatsApp</span></p>
       </div>
     </section>
@@ -686,7 +671,7 @@ def home(R):
       </div>
     </section>
 
-    <section class="section section--tone" aria-labelledby="guias">
+    <section class="section section--navy on-navy" aria-labelledby="guias">
       <div class="wrap">
         <div class="blog-home__head" data-reveal>
           <div><h2 class="head" id="guias">Guías y requisitos</h2><p class="soft">Artículos para preparar tu trámite con información verificada.</p></div>
