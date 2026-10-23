@@ -465,15 +465,15 @@ def footer(R):
       <p class="footer__notice"><strong>Aviso importante.</strong> Somos una empresa privada de asesoría migratoria. No somos una embajada, un consulado ni una entidad del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
       <div class="footer__legal">
         <p>© {YEAR} {BRAND}. Pagos en línea con ePayco.</p>
-        <a href="#top">Volver arriba</a>
+        <a class="to-top" href="#top" aria-label="Volver arriba" title="Volver arriba">{icon("arrow")}</a>
       </div>
       <p class="footer__credits">Imágenes ilustrativas y fotografías de colecciones abiertas. <a href="{R}creditos/">Ver créditos</a>.</p>
     </div>
   </footer>
 
   <div class="float">
-    <a class="float__call" href="tel:{PHONE_TEL}" aria-label="Llamar">{icon("phone")}</a>
-    <a class="float__wa" href="{wa(msg)}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp">{icon("wa")}<span>Escríbenos</span></a>
+    <a class="float__call" href="tel:{PHONE_TEL}" aria-label="Llamar">{icon("phone")}<span>Llamar</span></a>
+    <a class="float__wa" href="{wa(msg)}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp">{icon("wa")}<span class="only-wide">Escríbenos</span><span class="only-narrow">WhatsApp</span></a>
   </div>
 
   <script src="{R}assets/js/main.js" defer></script>
