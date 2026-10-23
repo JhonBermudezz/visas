@@ -244,3 +244,13 @@ document.addEventListener('click', (e) => {
   }, { threshold: 0.6 });
   nums.forEach((n) => io.observe(n));
 })();
+
+/* Botones flotantes: en el inicio aparecen al pasar el banner, que ya tiene sus propios botones */
+(() => {
+  const float = document.querySelector('.float');
+  const hero = document.querySelector('[data-hero]');
+  if (!float || !hero) return;
+  const update = () => float.classList.toggle('is-hidden', hero.getBoundingClientRect().bottom > innerHeight * 0.35);
+  update();
+  addEventListener('scroll', update, { passive: true });
+})();

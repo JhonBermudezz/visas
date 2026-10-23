@@ -682,11 +682,16 @@ def home(R):
           </div>
           <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
         </div>
-        <dl class="hero__stats">
-          <div><dd data-count="2000" data-prefix="+">+2.000</dd><dt>trámites de visa asesorados con éxito</dt></div>
-          <div><dd data-count="6" data-prefix="+" data-suffix=" años">+6 años</dd><dt>de experiencia en procesos migratorios</dt></div>
-          <div><dd>Credencial</dd><dt>de cooperación internacional</dt></div>
-        </dl>
+
+      </div>
+      <div class="hero__bar">
+        <div class="wrap">
+          <dl class="hero__stats">
+            <div><dd data-count="2000" data-prefix="+">+2.000</dd><dt>trámites de visa asesorados con éxito</dt></div>
+            <div><dd data-count="6" data-prefix="+" data-suffix=" años">+6 años</dd><dt>de experiencia en procesos migratorios</dt></div>
+            <div><dd>Credencial</dd><dt>de cooperación internacional</dt></div>
+          </dl>
+        </div>
       </div>
     </section>
 
