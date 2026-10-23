@@ -29,7 +29,7 @@ ADDRESS = 'Carrera 45, Bogotá'                       # número exacto pendiente
 HOURS = 'Lunes a viernes, 8:00 a. m. a 5:00 p. m.'   # pendiente
 INSTAGRAM = 'https://www.instagram.com/'             # pendiente
 TIKTOK = 'https://www.tiktok.com/'                   # pendiente
-SEMANA_URL = ''                                      # enlace al artículo de Semana: pendiente
+SEMANA_URL = 'https://www.semana.com/mundo/noticias-estados-unidos/articulo/migracion-pobreza-y-desigualdad-los-retos-que-discutiran-lideres-mundiales-en-nueva-york/202646/'
 MAP_QUERY = 'Carrera 45, Bogotá, Colombia'
 YEAR = date.today().year
 
@@ -541,6 +541,25 @@ def close_band(R, line='Hablemos de tu visa', photo='entrega'):
     </section>'''
 
 
+def press_section(R):
+    link = (f'<a class="btn btn--light" href="{SEMANA_URL}" target="_blank" rel="noopener">Leer el artículo en Semana {ARROW}</a>' if SEMANA_URL else '')
+    return f'''
+    <section class="section section--navy on-navy press" aria-labelledby="prensa">
+      <div class="wrap press__grid" data-reveal>
+        <div>
+          <h2 class="head" id="prensa">En la prensa</h2>
+          <p class="lead soft">Nuestro trabajo en migración ha llegado a espacios internacionales.</p>
+        </div>
+        <article class="press__card">
+          <blockquote class="press__title">«Migración, pobreza y desigualdad: los retos que discutirán líderes mundiales en Nueva York»</blockquote>
+          <p class="press__source">Revista Semana · 1 de julio de 2026</p>
+          <p>Semana destacó la participación de Steven Gutiérrez, especialista internacional en regulación migratoria, en el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026 en Nueva York, donde abordó si la migración puede convertirse en un motor de desarrollo sostenible.</p>
+          {link}
+        </article>
+      </div>
+    </section>'''
+
+
 def docs_section(R, title='Documentos y políticas', sub='Antes de pagar, conoce cómo tratamos tus datos, cómo manejamos cada caso y en qué condiciones hay reembolso.'):
     return f'''
     <section class="section" aria-labelledby="politicas">
@@ -661,35 +680,30 @@ def home(R):
             <a class="btn btn--primary" href="#consulta">Solicitar asesoría</a>
             <a class="btn btn--wa" href="{wa("Hola, quiero información sobre la visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
           </div>
+          <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
         </div>
-        <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
+        <dl class="hero__stats">
+          <div><dd data-count="2000" data-prefix="+">+2.000</dd><dt>trámites de visa asesorados con éxito</dt></div>
+          <div><dd data-count="6" data-prefix="+" data-suffix=" años">+6 años</dd><dt>de experiencia en procesos migratorios</dt></div>
+          <div><dd>Credencial</dd><dt>de cooperación internacional</dt></div>
+        </dl>
       </div>
-    </section>
-
-    <section class="trust" aria-label="Respaldo">
-      <div class="wrap"><div class="trust__panel trust__grid on-navy">
-        <p class="trust__note"><strong>Somos asesores privados, no una entidad oficial.</strong>No somos una embajada ni una oficina del Gobierno. Las tarifas consulares se pagan directamente a cada entidad y la decisión sobre tu visa es siempre del consulado.</p>
-        <p class="fact"><span class="fact__value" data-count="2000" data-prefix="+">+2.000</span><span class="fact__label">trámites de visa asesorados</span></p>
-        <p class="fact"><span class="fact__value" data-count="6" data-suffix=" años">6 años</span><span class="fact__label">de experiencia en procesos migratorios</span></p>
-        <p class="fact"><span class="fact__value">Bogotá</span><span class="fact__label">oficina en la Carrera 45 y atención por WhatsApp</span></p>
-      </div></div>
     </section>
 
     <section class="section section--tone" aria-labelledby="procesos" id="servicios">
       <div class="wrap">
-        <div class="svc__head" data-reveal>
-          <h2 class="head" id="procesos">Procesos de visa internacional</h2>
-          <p class="lead">Elige tu destino y conoce cómo preparamos cada solicitud.</p>
+        <div class="sec-head" data-reveal>
+          <div><h2 class="head" id="procesos">Procesos de visa internacional</h2><p class="lead">Elige tu destino y conoce cómo preparamos cada solicitud.</p></div>
+          <a class="more" href="{R}servicios/">Ver servicios especializados {ARROW}</a>
         </div>
         <div class="countries" data-reveal>{country_cards}</div>
-        <p style="margin-top:2.5rem"><a class="more" href="{R}servicios/">Ver servicios especializados {ARROW}</a></p>
       </div>
     </section>
 
     <section class="section section--navy on-navy" aria-labelledby="guias">
       <div class="wrap">
-        <div class="blog-home__head" data-reveal>
-          <div><h2 class="head" id="guias">Guías y requisitos</h2><p class="soft">Artículos para preparar tu trámite con información verificada.</p></div>
+        <div class="sec-head" data-reveal>
+          <div><h2 class="head" id="guias">Guías y requisitos</h2><p class="lead soft">Artículos para preparar tu trámite con información verificada.</p></div>
           <a class="more" href="{R}blog/">Ver todas las guías {ARROW}</a>
         </div>
         <div class="blog-home">
@@ -706,14 +720,33 @@ def home(R):
       </div>
     </section>
 
-    <section class="section" id="consulta" aria-labelledby="consulta-t">
+    <section class="section" aria-labelledby="gerencia">
+      <div class="wrap about">
+        <figure class="about__media" data-reveal>
+          <div class="about__photo">{img(R, "documentos", sizes="(max-width: 860px) 100vw, 50vw")}</div>
+          <figcaption class="about__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide únicamente el consulado: nadie puede garantizarla.</figcaption>
+        </figure>
+        <div class="about__text" data-reveal>
+          <h2 class="head" id="gerencia">Gerencia de visas y procesos migratorios</h2>
+          <p class="lead">Somos un equipo de cuatro asesores en Bogotá. Llevamos más de seis años preparando solicitudes de visa con información clara y acompañamiento real.</p>
+          <ul class="checks">
+            <li><strong>Credencial de cooperación internacional</strong>Colaboramos con la Organización Internacional para las Migraciones y con embajadas.</li>
+            <li><strong>Asesoría a jueces de inmigración</strong>Nuestra gerencia ha asesorado a jueces de inmigración en cortes de Estados Unidos.</li>
+            <li><strong>Asesoría migratoria, no venta de viajes</strong>No somos agencia de viajes; por eso el RNT no aplica a nuestro servicio.</li>
+          </ul>
+          <div class="actions"><a class="btn btn--line" href="{R}nosotros/">Conoce nuestra historia</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tone" id="consulta" aria-labelledby="consulta-t">
       <div class="wrap planner">
         <div class="planner__intro" data-reveal>
           <h2 class="head" id="consulta-t">Prepara tu consulta</h2>
           <p class="lead">Elige destino y trámite. Te mostramos qué conviene tener a mano y dejamos listo el mensaje para WhatsApp.</p>
-          <p class="small soft">Con tu información a la vista, un asesor te responde con los pasos a seguir y el valor del servicio.</p>
+          <p class="soft">Con tu información a la vista, un asesor te responde con los pasos a seguir y el valor del servicio.</p>
         </div>
-        <form class="planner__box section--tone" data-planner onsubmit="return false" aria-label="Arma tu consulta">
+        <form class="planner__box" data-planner onsubmit="return false" aria-label="Arma tu consulta">
           <fieldset><legend>¿A qué país viajas?</legend><div class="chips">{chips_dest}</div></fieldset>
           <fieldset><legend>¿Qué trámite necesitas?</legend><div class="chips" data-tramites>{chips_proc}</div></fieldset>
           <div class="planner__result" aria-live="polite">
@@ -729,34 +762,7 @@ def home(R):
       </div>
       <script type="application/json" id="planner-data">{planner_json}</script>
     </section>
-
-    <section class="section section--tone" aria-labelledby="gerencia">
-      <div class="wrap">
-        <div class="mgmt__intro" data-reveal>
-          <h2 class="head" id="gerencia">Gerencia de visas y procesos migratorios</h2>
-          <p class="lead">Somos un equipo de cuatro asesores en Bogotá con credencial de cooperación internacional. Hemos acompañado más de 2.000 trámites y prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</p>
-        </div>
-        <div class="mosaic">
-          <figure class="mosaic__photo shutter" data-shutter>
-            {img(R, "documentos", sizes="(max-width: 860px) 100vw, 64vw")}
-            <figcaption class="mosaic__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide únicamente el consulado: nadie puede garantizarla.</figcaption>
-          </figure>
-          <div class="mosaic__side" data-reveal>
-            <div class="mosaic__tile">
-              <p class="title" style="color:var(--on-navy)">Cooperación internacional</p>
-              <p>Colaboramos con la Organización Internacional para las Migraciones y con embajadas mediante nuestra credencial de cooperación.</p>
-            </div>
-            <dl class="facts">
-              <div><dt>Experiencia</dt><dd>6 años</dd></div>
-              <div><dt>Trámites asesorados</dt><dd>Más de 2.000</dd></div>
-              <div><dt>En la prensa</dt><dd>Revista Semana</dd></div>
-              <div><dt>Oficina</dt><dd>{ADDRESS}</dd></div>
-            </dl>
-          </div>
-        </div>
-        <p style="margin-top:2.5rem"><a class="more" href="{R}nosotros/">Conoce nuestra historia {ARROW}</a></p>
-      </div>
-    </section>
+{press_section(R)}
 {close_band(R)}
 '''
 
@@ -793,7 +799,7 @@ def nosotros(R):
         </div>
         <dl class="stats" data-reveal>
           <div><dt>trámites de visa asesorados</dt><dd data-count="2000" data-prefix="+">+2.000</dd></div>
-          <div><dt>años de experiencia</dt><dd data-count="6">6</dd></div>
+          <div><dt>años de experiencia</dt><dd data-count="6" data-prefix="+">+6</dd></div>
           <div><dt>asesores en Bogotá</dt><dd data-count="4">4</dd></div>
         </dl>
       </div>
@@ -814,30 +820,26 @@ def nosotros(R):
         <div class="coop" data-reveal>
           <div class="coop__item"><h3>Credencial de cooperación internacional</h3><p>Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</p></div>
           <div class="coop__item"><h3>Asesoría a jueces de inmigración</h3><p>Nuestra gerencia ha prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</p></div>
-          <div class="coop__item"><h3>Encuentros sobre migración</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe junto a representantes de embajadas.</p></div>
+          <div class="coop__item"><h3>Foros internacionales</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe, como el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026 en Nueva York.</p></div>
           <div class="coop__item"><h3>No somos agencia de viajes</h3><p>Por eso no tenemos RNT: nuestro trabajo es la asesoría migratoria, no la venta de viajes.</p></div>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-label="Prensa y equipo">
+    <section class="section" aria-labelledby="equipo">
       <div class="wrap duo" data-reveal>
-        <article class="duo__card duo__card--press">
-          <h2 class="title" id="prensa">En la prensa</h2>
-          <p class="quote">La revista Semana publicó un artículo sobre nuestra labor de asesoría migratoria en Nueva York.</p>
-          {semana}
-        </article>
-        <article class="duo__card duo__card--team on-navy">
-          <h2 class="title" id="equipo">Un equipo de cuatro asesores</h2>
+        <div class="duo__card duo__card--press">
+          <h2 class="head" id="equipo">Un equipo de cuatro asesores</h2>
           <p>Por seguridad, y siguiendo las recomendaciones de las embajadas, no publicamos fotografías del equipo. Te atendemos con nombre propio por WhatsApp y en la oficina.</p>
-          <ul>
-            <li>Te decimos con claridad qué puede hacer una asesoría y qué decide el consulado.</li>
-            <li>Revisamos cada documento antes de que lo presentes.</li>
-            <li>Respondemos por WhatsApp en cada etapa del trámite.</li>
-          </ul>
-        </article>
+        </div>
+        <ul class="duo__card duo__card--team on-navy checks checks--light">
+          <li><strong>Claridad</strong>Te decimos qué puede hacer una asesoría y qué decide el consulado.</li>
+          <li><strong>Revisión</strong>Revisamos cada documento antes de que lo presentes.</li>
+          <li><strong>Seguimiento</strong>Respondemos por WhatsApp en cada etapa del trámite.</li>
+        </ul>
       </div>
     </section>
+{press_section(R)}
 {close_band(R)}
 '''
 
@@ -1188,7 +1190,7 @@ def not_found(R):
 # ---------------------------------------------------------------------------
 def build():
     page('', 'Asesoría de visas en Bogotá, Colombia', 'Asesoría privada de visas en Bogotá para Estados Unidos, Reino Unido, Canadá, Australia y Malasia. Revisión de documentos, citas y atención por WhatsApp.', home, '', [ORG_LD])
-    page('nosotros/', 'Quiénes somos: asesores de visas en Bogotá', 'Empresa privada de asesoría migratoria en Bogotá con credencial de cooperación internacional, 6 años de experiencia y más de 2.000 trámites.', nosotros, 'nosotros/', [breadcrumb_ld([('nosotros/', 'Nosotros')])])
+    page('nosotros/', 'Quiénes somos: asesores de visas en Bogotá', 'Empresa privada de asesoría migratoria en Bogotá con credencial de cooperación internacional, más de 6 años de experiencia y más de 2.000 trámites.', nosotros, 'nosotros/', [breadcrumb_ld([('nosotros/', 'Nosotros')])])
     page('servicios/', 'Servicios especializados en visas', 'Procesos de visa internacional desde Bogotá: Estados Unidos (primera vez, renovación, revocada, perdida), Reino Unido, Canadá, Australia y Malasia.', servicios, 'servicios/', [breadcrumb_ld([('servicios/', 'Servicios')])])
     p_us = 'servicios/visa-estados-unidos/'
     page(p_us, US['title'], US['desc'], us_hub, 'servicios/', [service_ld('Asesoría para visa americana', US['desc'], p_us), breadcrumb_ld([('servicios/', 'Servicios'), (p_us, 'Estados Unidos')])])

@@ -51,7 +51,7 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 
 La primera versión (clásica, con serifa) quedó guardada como copia fija en `legacy/`, visible en https://jhonbermudezz.github.io/visas/legacy/ y fuera de los buscadores. No se regenera con el script.
 - Fotografías de destinos y de Bogotá de colecciones abiertas (Wikimedia Commons y Openverse); créditos en `/creditos/` y en `assets/credits.json`.
-- Imágenes ilustrativas de viajeros, documentos y el mapa del mundo generadas con IA en KIE (modelo nano-banana): `hero-familia`, `hero-eeuu`, `hero-destinos`, `documentos`, `entrega` y `mapa` en `assets/img/`. No muestran clientes reales ni al equipo; reemplazarlas por fotos propias cuando el cliente las envíe.
+- Imágenes ilustrativas de viajeros, documentos y el mapa del mundo generadas con IA en KIE (modelo Seedream 5.0 Pro, `seedream/5-pro-text-to-image`): `hero-familia`, `hero-eeuu`, `hero-destinos`, `documentos`, `entrega` y `mapa` en `assets/img/`. No muestran clientes reales ni al equipo; reemplazarlas por fotos propias cuando el cliente las envíe.
 
 ## Pendiente antes de publicar
 
@@ -59,7 +59,7 @@ En `tools/build.py` (bloque "Datos del negocio"):
 
 - Teléfono y WhatsApp, correo, dirección exacta, horario y dominio definitivo (`SITE`).
 - Enlaces de Instagram y TikTok.
-- Enlace del artículo de Semana (`SEMANA_URL`); al llenarlo aparece el botón "Leer el artículo".
+- Artículo de Semana ya enlazado (`SEMANA_URL`): participación de Steven Gutiérrez en el Foro Político de Alto Nivel 2026 en Nueva York. Confirmar con el cliente el cargo con el que debe aparecer.
 
 En `assets/js/main.js`:
 
