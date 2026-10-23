@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /legacy/
 
 Sitemap: https://jhonbermudezz.github.io/visas/sitemap.xml

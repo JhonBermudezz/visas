@@ -1230,7 +1230,7 @@ def build():
 
     urls = '\n'.join(f'  <url><loc>{SITE}/{p}</loc><lastmod>{date.today().isoformat()}</lastmod></url>' for p in PAGES)
     write('sitemap.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n')
-    write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
+    write('robots.txt', f'User-agent: *\nAllow: /\nDisallow: /legacy/\n\nSitemap: {SITE}/sitemap.xml\n')
     print(f'{len(PAGES) + 1} páginas generadas')
 
 
