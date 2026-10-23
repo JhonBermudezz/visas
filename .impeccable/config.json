@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "assets/css/styles.css"
+        ],
+        "createdAt": "2026-10-23T02:21:10.729Z",
+        "reason": "Claude: L210 is .hero__tab::after, a 3px bar along the bottom of the active carousel tab that fills over 7s as the slide timer; it is a functional progress indicator, not a side border on a card"
+      }
+    ]
+  }
+}
