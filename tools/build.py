@@ -59,6 +59,9 @@ SPRITE = '''<svg width="0" height="0" style="position:absolute" aria-hidden="tru
   <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 12h15m-5-5.5L19.5 12 14 17.5"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 2.8h8.2L19 7.6V21.2H6z"/><path d="M14 2.8V8h5M9 12.5h7M9 16h7"/></g></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16.2c.6-1.5 1.8-2.3 3.2-2.3s2.6.8 3.2 2.3M14.5 10h4M14.5 13.5h3"/></g></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v17M7 20.5h10M4.5 7h15M12 5.5 4.5 7M12 5.5 19.5 7"/><path d="M4.5 7 2 13a2.6 2.6 0 0 0 5 0zM19.5 7 17 13a2.6 2.6 0 0 0 5 0z"/></g></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.4 3.6 5.2 3.6 8.5s-1.2 6.1-3.6 8.5c-2.4-2.4-3.6-5.2-3.6-8.5S9.6 5.9 12 3.5z"/></g></symbol>
   <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.8" y="5.5" width="18.4" height="13" rx="1.5"/><path d="M2.8 9.8h18.4M6.5 15h4"/></g></symbol>
 </svg>'''
 
@@ -85,11 +88,12 @@ PHOTOS = {
     'taxi': ('Taxi amarillo en la avenida El Dorado, Bogotá', 1920, 1440, 'Bogotá'),
     'candelaria': ('Calle empedrada del barrio La Candelaria, Bogotá', 1794, 1200, 'Bogotá'),
     # Imágenes ilustrativas generadas con IA (KIE): no muestran clientes reales ni al equipo
-    'hero-familia': ('Familia colombiana con sus pasaportes en un aeropuerto', 1344, 768, 'Ilustrativa'),
-    'hero-eeuu': ('Viajero con pasaporte y carpeta de documentos en un aeropuerto', 1344, 768, 'Ilustrativa'),
-    'hero-destinos': ('Pareja con maleta frente al tablero de salidas de un aeropuerto', 1344, 768, 'Ilustrativa'),
-    'documentos': ('Pasaportes y formularios de solicitud de visa sobre un escritorio', 1248, 832, 'Ilustrativa'),
-    'entrega': ('Asesor entregando un pasaporte y una carpeta de documentos', 896, 1152, 'Ilustrativa'),
+    'hero-familia': ('Familia colombiana con sus pasaportes en un aeropuerto', 1920, 1080, 'Ilustrativa'),
+    'hero-eeuu': ('Viajero con pasaporte y carpeta de documentos en un aeropuerto', 1920, 1080, 'Ilustrativa'),
+    'hero-destinos': ('Pareja con maleta frente al tablero de salidas de un aeropuerto', 1920, 1080, 'Ilustrativa'),
+    'documentos': ('Pasaportes y formularios de solicitud de visa sobre un escritorio', 1920, 1280, 'Ilustrativa'),
+    'entrega': ('Asesor entregando un pasaporte y una carpeta de documentos', 1280, 1707, 'Ilustrativa'),
+    'mapa': ('Mapa del mundo punteado', 1920, 1080, 'Ilustrativa'),
 }
 CREDIT_KEYS = {'west-front': 'capitolio', 'westminster': 'westminster', 'ottawa': 'ottawa', 'sydney': 'sidney', 'petronas': 'petronas',
                'cerros': 'bogota', 'melbourne': 'salidas', 'myanmar': 'sellos', 'taxi': 'taxi', 'candelaria': 'candelaria'}
@@ -816,17 +820,18 @@ def nosotros(R):
     </section>
 
     <section class="section section--navy on-navy" aria-labelledby="cooperacion">
-      <div class="wrap">
-        <div class="coop__head" data-reveal>
+      <div class="wrap coop-grid">
+        <div class="coop-intro">
           <h2 class="head" id="cooperacion">Cooperación internacional</h2>
-          <p class="lead soft">Trabajamos con organismos internacionales y con embajadas.</p>
+          <p class="lead">Trabajamos con organismos internacionales y con embajadas, desde Bogotá.</p>
+          <figure class="coop-map">{img(R, "mapa", sizes="(max-width: 860px) 100vw, 40vw", alt="Mapa con Bogotá y los destinos que atendemos: Estados Unidos, Canadá, Reino Unido, Malasia y Australia")}<span class="pin pin--home" style="left:26.5%;top:56.5%" title="Bogotá"><span class="sr-only">Bogotá</span></span><span class="pin" style="left:25.2%;top:41.5%" title="Washington D. C."><span class="sr-only">Washington D. C.</span></span><span class="pin" style="left:24.2%;top:37.2%" title="Ottawa"><span class="sr-only">Ottawa</span></span><span class="pin" style="left:46.6%;top:34%" title="Londres"><span class="sr-only">Londres</span></span><span class="pin" style="left:74.6%;top:57.6%" title="Kuala Lumpur"><span class="sr-only">Kuala Lumpur</span></span><span class="pin" style="left:85%;top:74%" title="Sídney"><span class="sr-only">Sídney</span></span><figcaption>Desde Bogotá hacia Estados Unidos, Canadá, Reino Unido, Malasia y Australia.</figcaption></figure>
         </div>
-        <div class="coop" data-reveal>
-          <div class="coop__item"><h3>Credencial de cooperación internacional</h3><p>Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</p></div>
-          <div class="coop__item"><h3>Asesoría a jueces de inmigración</h3><p>Nuestra gerencia ha prestado asesoría a jueces de inmigración en cortes de Estados Unidos.</p></div>
-          <div class="coop__item"><h3>Foros internacionales</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe, como el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026 en Nueva York.</p></div>
-          <div class="coop__item"><h3>El RNT no aplica</h3><p>Ese registro es para agencias de viajes. Nosotros hacemos asesoría migratoria.</p></div>
-        </div>
+        <ul class="coop-list" data-reveal>
+          <li>{icon("badge", "coop-ico")}<div><h3>Credencial de cooperación internacional</h3><p>Nos permite colaborar con la Organización Internacional para las Migraciones (OIM) y con embajadas.</p></div></li>
+          <li>{icon("scale", "coop-ico")}<div><h3>Asesoría a jueces de inmigración</h3><p>Nuestra gerencia ha asesorado a jueces de inmigración en cortes de Estados Unidos.</p></div></li>
+          <li>{icon("globe", "coop-ico")}<div><h3>Foros internacionales</h3><p>Participamos en espacios sobre migración en América Latina y el Caribe, como el Foro Político de Alto Nivel sobre Desarrollo Sostenible 2026, en Nueva York.</p></div></li>
+          <li>{icon("doc", "coop-ico")}<div><h3>El RNT no aplica</h3><p>Ese registro es para agencias de viajes. Nosotros hacemos asesoría migratoria.</p></div></li>
+        </ul>
       </div>
     </section>
 

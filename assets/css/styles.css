@@ -463,6 +463,21 @@ p + p { margin-top: 0.9em; }
 @media (max-width: 860px) { .cta-card { grid-template-columns: 1fr; } .cta-card__photo { min-height: 0; height: 13rem; order: -1; } .cta-card__body .actions .btn { flex: 1 1 auto; } }
 
 /* ---------- nosotros ---------- */
+.coop-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+.coop-intro .head { color: #fff; max-width: 12ch; }
+.coop-intro .lead { margin-top: 1.25rem; max-width: 32ch; color: var(--on-navy-soft); }
+.coop-map { position: relative; margin: clamp(2rem, 4vw, 3rem) 0 0; border-radius: var(--radius); overflow: hidden; }
+.coop-map figcaption { position: absolute; left: 1rem; bottom: 0.9rem; right: 1rem; font-family: var(--font-display); font-size: var(--step-small); color: var(--on-navy); }
+.pin { position: absolute; width: 0.7rem; height: 0.7rem; margin: -0.35rem 0 0 -0.35rem; border-radius: 999px; background: #fff; }
+.pin--home { width: 1.1rem; height: 1.1rem; margin: -0.55rem 0 0 -0.55rem; background: var(--red); outline: 3px solid rgba(255, 255, 255, 0.85); }
+.coop-map img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.coop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.coop-list li { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 1.25rem; align-items: start; padding: clamp(1.5rem, 2.5vw, 2rem); border-radius: var(--radius); background: rgba(255, 255, 255, 0.05); }
+.coop-ico { width: 3.25rem; height: 3.25rem; padding: 0.8rem; border-radius: 999px; background: var(--red); color: #fff; }
+.coop-list h3 { font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); letter-spacing: -0.02em; color: #fff; }
+.coop-list p { margin-top: 0.4rem; color: var(--on-navy-soft); }
+@media (max-width: 860px) { .coop-grid { grid-template-columns: 1fr; gap: 2.5rem; } .coop-list li { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1rem; padding: 1.25rem; } .coop-ico { width: 2.75rem; height: 2.75rem; padding: 0.65rem; } }
+
 .story { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
 .story__text .lead { margin-top: 1.5rem; }
 .story__text p:not(.lead) { margin-top: 1rem; color: var(--soft); }
@@ -604,6 +619,21 @@ p + p { margin-top: 0.9em; }
 .cta-band p { margin-top: 1rem; max-width: 44ch; }
 
 /* ---------- nosotros ---------- */
+.coop-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+.coop-intro .head { color: #fff; max-width: 12ch; }
+.coop-intro .lead { margin-top: 1.25rem; max-width: 32ch; color: var(--on-navy-soft); }
+.coop-map { position: relative; margin: clamp(2rem, 4vw, 3rem) 0 0; border-radius: var(--radius); overflow: hidden; }
+.coop-map figcaption { position: absolute; left: 1rem; bottom: 0.9rem; right: 1rem; font-family: var(--font-display); font-size: var(--step-small); color: var(--on-navy); }
+.pin { position: absolute; width: 0.7rem; height: 0.7rem; margin: -0.35rem 0 0 -0.35rem; border-radius: 999px; background: #fff; }
+.pin--home { width: 1.1rem; height: 1.1rem; margin: -0.55rem 0 0 -0.55rem; background: var(--red); outline: 3px solid rgba(255, 255, 255, 0.85); }
+.coop-map img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.coop-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.coop-list li { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 1.25rem; align-items: start; padding: clamp(1.5rem, 2.5vw, 2rem); border-radius: var(--radius); background: rgba(255, 255, 255, 0.05); }
+.coop-ico { width: 3.25rem; height: 3.25rem; padding: 0.8rem; border-radius: 999px; background: var(--red); color: #fff; }
+.coop-list h3 { font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); letter-spacing: -0.02em; color: #fff; }
+.coop-list p { margin-top: 0.4rem; color: var(--on-navy-soft); }
+@media (max-width: 860px) { .coop-grid { grid-template-columns: 1fr; gap: 2.5rem; } .coop-list li { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1rem; padding: 1.25rem; } .coop-ico { width: 2.75rem; height: 2.75rem; padding: 0.65rem; } }
+
 .milestones { display: grid; gap: 1.75rem; }
 .milestones li { display: grid; gap: 0.3rem; }
 .milestones strong { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: -0.015em; }
@@ -720,8 +750,8 @@ p + p { margin-top: 0.9em; }
 
 /* ---------- entradas al hacer scroll (el contenido se ve sin JS) ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .js :is(.countries, .post-grid, .dest-grid, .post-list)[data-reveal] > * { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 800ms var(--ease-out); transition-delay: calc(var(--d, 0) * 80ms); }
-  .js :is(.countries, .post-grid, .dest-grid, .post-list)[data-reveal].is-in > * { opacity: 1; transform: none; }
+  .js :is(.countries, .post-grid, .dest-grid, .post-list, .coop-list)[data-reveal] > * { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 800ms var(--ease-out); transition-delay: calc(var(--d, 0) * 80ms); }
+  .js :is(.countries, .post-grid, .dest-grid, .post-list, .coop-list)[data-reveal].is-in > * { opacity: 1; transform: none; }
   .js [data-reveal] > :nth-child(2) { --d: 1; }
   .js [data-reveal] > :nth-child(3) { --d: 2; }
   .js [data-reveal] > :nth-child(4) { --d: 3; }
