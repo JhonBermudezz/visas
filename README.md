@@ -58,7 +58,7 @@ La primera versión (clásica, con serifa) quedó guardada como copia fija en `l
 En `tools/build.py` (bloque "Datos del negocio"):
 
 - Teléfono y WhatsApp, correo, dirección exacta, horario y dominio definitivo (`SITE`).
-- Enlaces de Instagram y TikTok.
+- Instagram ya enlazado (visasypasaportescol). TikTok: pendiente; mientras `TIKTOK` esté vacío no se muestra el ícono.
 - Artículo de Semana ya enlazado (`SEMANA_URL`): participación de Steven Gutiérrez en el Foro Político de Alto Nivel 2026 en Nueva York. Confirmar con el cliente el cargo con el que debe aparecer.
 
 En `assets/js/main.js`:
@@ -67,5 +67,6 @@ En `assets/js/main.js`:
 
 Contenido del cliente:
 
-- Textos de los slides 2 y 3, tabla de precios, artículos del blog (los actuales son borradores para validar), videos corporativos, fotos del negocio y documentos legales definitivos (los actuales son borradores).
+- Precios cargados en `PRICES` (`tools/build.py`): honorarios y derechos consulares de EE. UU., Reino Unido, Canadá y Malasia. Faltan Australia y los casos de visa revocada y perdida.
+- Textos de los slides 2 y 3, artículos del blog (los actuales son borradores para validar), videos corporativos, fotos del negocio y documentos legales definitivos (los actuales son borradores).
 - Logo en alta resolución o vectorial (el actual se recortó de la imagen enviada).

@@ -140,7 +140,10 @@ const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(te
     const dest = data[form.destino.value];
     const opt = dest.options.find((o) => o.id === form.tramite?.value) || dest.options[0];
     title.textContent = `${dest.country}, ${opt.label.toLowerCase()}`;
-    docs.innerHTML = opt.docs.map((d) => `<li>${d}</li>`).join('');
+    form.querySelector('[data-fee]').textContent = opt.fee;
+    form.querySelector('[data-consular]').textContent = opt.consular;
+    docs.innerHTML = opt.docs.length ? '<li><strong>Para tu cita en el CAS:</strong></li>' + opt.docs.map((d) => `<li>${d}</li>`).join('') : '';
+    docs.hidden = !opt.docs.length;
     waBtn.href = waLink(`Hola, quiero asesoría para la visa de ${dest.country} (${opt.label}). ¿Qué necesito para empezar?`);
     more.href = base + opt.url;
     if (!reduced) { result.classList.remove('is-changing'); void result.offsetWidth; result.classList.add('is-changing'); }
