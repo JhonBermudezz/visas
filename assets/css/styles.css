@@ -769,7 +769,7 @@ p + p { margin-top: 0.9em; }
 
 /* ---------- intro con el video del logo (primera visita de la sesión) ---------- */
 .intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #d4d9de; transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms; animation: intro-safety 0s linear 9.5s forwards; }
-.intro__video { width: min(100%, 1100px); height: auto; -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); }
+.intro__video { width: min(100%, 1100px); height: auto; -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); } /* taste-skill-ignore: máscara para fundir los bordes del video, no es un relleno */
 .intro__skip { position: absolute; right: var(--margin); bottom: calc(1.5rem + env(safe-area-inset-bottom)); min-height: 2.75rem; padding: 0 1.2rem; border-radius: 999px; background: rgba(11, 20, 48, 0.85); color: #fff; font-family: var(--font-display); font-weight: 500; font-size: var(--step-ui); transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
 .intro__skip:active { transform: scale(0.97); }
 @media (hover: hover) and (pointer: fine) { .intro__skip:hover { background: var(--navy-deep); } }
