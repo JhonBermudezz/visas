@@ -296,17 +296,25 @@ for c in COUNTRIES:
 # Documentos y políticas
 # ---------------------------------------------------------------------------
 LEGAL = [
-    ('politica-de-tratamiento-de-datos', 'Tratamiento de datos personales', 'Cómo recogemos, usamos y protegemos tu información (Ley 1581 de 2012).'),
-    ('politica-de-manejo-de-casos', 'Manejo de casos', 'Qué hacemos en cada caso, qué decides tú y qué decide el consulado.'),
-    ('terminos-y-condiciones', 'Términos y condiciones', 'Las reglas del servicio de asesoría y del uso de este sitio.'),
-    ('politica-de-reembolsos', 'Reembolsos', 'En qué casos devolvemos el valor de la asesoría y cómo pedirlo.'),
-    ('pqrs', 'PQRS', 'Peticiones, quejas, reclamos y sugerencias: cómo radicarlas y en qué plazo respondemos.'),
+    ('politica-de-tratamiento-de-datos', 'Tratamiento de datos personales', 'Política general de tratamiento de datos personales',
+     'Cómo recogemos, usamos y protegemos tu información (Ley 1581 de 2012).', 'politica-tratamiento-datos-personales.pdf'),
+    ('acuerdo-de-gestion-del-servicio', 'Acuerdo de gestión del servicio', 'Acuerdo de gestión técnica y políticas del servicio',
+     'Qué hace la asesoría, qué decide el consulado y cómo funcionan honorarios y derechos consulares.', 'acuerdo-de-gestion-del-servicio.pdf'),
+    ('terminos-y-condiciones', 'Términos y condiciones', 'Términos y condiciones de uso web y contratación electrónica',
+     'Uso del sitio, precios, derecho de retracto y pagos con ePayco y Bold.', 'terminos-y-condiciones.pdf'),
+    ('politica-de-cookies', 'Política de cookies', 'Política de cookies e información web',
+     'Qué cookies usa el sitio, cómo configurarlas y qué pasa si navegas con VPN.', 'politica-de-cookies.pdf'),
+    ('pqrs', 'PQRS', 'PQRS: peticiones, quejas, reclamos y sugerencias',
+     'Canales oficiales para radicar tu solicitud y plazos de respuesta.', None),
 ]
+PQRS_EMAIL = 'pqrs@visasypasaportescolombia.com'
+LEGAL_EMAIL = 'legal@visasypasaportescolombia.com'
+PRIVACY_EMAIL = 'privacidad@visasypasaportescolombia.com'
 
 
 def docs_list(R):
     out = []
-    for slug, name, sub in LEGAL:
+    for slug, name, _, sub, _ in LEGAL:
         out.append(f'<a class="doc-link" href="{R}{slug}/">{icon("doc")}<div><strong>{name}</strong><span>{sub}</span></div>{icon("arrow", "go")}</a>')
     return '\n          '.join(out)
 
@@ -460,7 +468,7 @@ def header(R, active):
 
 def footer(R):
     svc = ''.join(f'<li><a href="{R}servicios/{c["slug"]}/">Visa {c["country"]}</a></li>' for c in [US] + COUNTRIES)
-    legal = ''.join(f'<li><a href="{R}{s}/">{n}</a></li>' for s, n, _ in LEGAL[:4])
+    legal = ''.join(f'<li><a href="{R}{s}/">{n}</a></li>' for s, n, *_ in LEGAL[:4])
     msg = 'Hola, quiero información sobre un trámite de visa.'
     return f'''
   </main>
@@ -585,7 +593,7 @@ def press_section(R):
     </section>'''
 
 
-def docs_section(R, title='Documentos y políticas', sub='Antes de pagar, conoce cómo tratamos tus datos, cómo manejamos cada caso y en qué condiciones hay reembolso.'):
+def docs_section(R, title='Documentos y políticas', sub='Antes de pagar, conoce cómo tratamos tus datos, cómo funciona el servicio y las condiciones de pago.'):
     return f'''
     <section class="section" aria-labelledby="politicas">
       <div class="wrap split" data-reveal>
@@ -1105,7 +1113,7 @@ def contacto(R):
         <div class="axis__main channels" data-reveal>
           <div class="channel"><h3>WhatsApp</h3><p>{PHONE}. El canal más rápido para empezar tu trámite.</p><a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir ahora</a></div>
           <div class="channel"><h3>Teléfono</h3><p>{PHONE}. {HOURS}</p><a class="btn btn--line" href="tel:{PHONE_TEL}">Llamar</a></div>
-          <div class="channel"><h3>Correo</h3><p>{EMAIL}. Para enviar documentos o radicar una PQRS.</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
+          <div class="channel"><h3>Correo</h3><p>{EMAIL}. Para enviar documentos. Las PQRS se radican en {PQRS_EMAIL}.</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
         </div>
       </div>
     </section>
@@ -1136,65 +1144,43 @@ def contacto(R):
 # ---------------------------------------------------------------------------
 # Legales
 # ---------------------------------------------------------------------------
-NOTICE = '<blockquote>Este documento es una versión preliminar y se reemplazará por el texto definitivo aprobado por la empresa.</blockquote>'
-
-LEGAL_BODY = {
-    'politica-de-tratamiento-de-datos': f'''
-      <h2>Responsable del tratamiento</h2>
-      <p>{BRAND}, con domicilio en {ADDRESS}, es responsable del tratamiento de los datos personales que recoge a través de este sitio, de WhatsApp, del correo electrónico y de la atención en oficina. Contacto: {EMAIL}.</p>
-      <h2>Qué datos recogemos</h2>
-      <ul><li>Datos de identificación y contacto: nombre, documento, teléfono y correo.</li><li>Datos del trámite: pasaporte, historial de viajes, información laboral, financiera y familiar que se necesita para la solicitud de visa.</li><li>Datos de navegación del sitio, de forma agregada.</li></ul>
-      <h2>Para qué los usamos</h2>
-      <ul><li>Prestar el servicio de asesoría y diligenciar las solicitudes que nos autorices.</li><li>Comunicarnos contigo sobre el estado de tu trámite.</li><li>Cumplir obligaciones legales, contables y tributarias.</li></ul>
-      <p>No vendemos ni cedemos tus datos. Solo los compartimos con las entidades ante las que presentas tu solicitud y con proveedores necesarios para prestar el servicio, bajo acuerdos de confidencialidad.</p>
-      <h2>Tus derechos</h2>
-      <p>Según la Ley 1581 de 2012 puedes conocer, actualizar, rectificar y suprimir tus datos, revocar la autorización y presentar quejas ante la Superintendencia de Industria y Comercio. Para ejercerlos escribe a {EMAIL}.</p>
-      <h2>Datos sensibles</h2>
-      <p>Algunos trámites requieren información sensible. No estás obligado a entregarla; si decides hacerlo, la usaremos para tu solicitud.</p>''',
-    'politica-de-manejo-de-casos': '''
-      <h2>Qué hacemos</h2>
-      <p>Revisamos tu caso, te indicamos los requisitos vigentes, organizamos y revisamos tus documentos, diligenciamos los formularios con la información que nos entregas, programamos las citas y te preparamos para la entrevista cuando aplica.</p>
-      <h2>Qué decides tú</h2>
-      <p>Tú apruebas la información que se presenta en tu nombre y eres responsable de que sea verdadera. Nunca diligenciaremos datos falsos ni documentos alterados.</p>
-      <h2>Qué decide el consulado</h2>
-      <p>La aprobación o negación de una visa es una decisión exclusiva de la autoridad de cada país. Ninguna asesoría puede garantizar el resultado.</p>
-      <h2>Confidencialidad</h2>
-      <p>Cada caso lo atiende un asesor asignado. Tus documentos se usan solo para tu trámite y se manejan según nuestra política de tratamiento de datos.</p>''',
-    'terminos-y-condiciones': f'''
-      <h2>El servicio</h2>
-      <p>{BRAND} presta servicios privados de asesoría en solicitudes de visa. No es una entidad oficial ni representa a ningún gobierno o consulado.</p>
-      <h2>Honorarios y tarifas oficiales</h2>
-      <p>El valor de la asesoría se informa antes de empezar y se paga a través de ePayco o de los medios que indiquemos. Las tarifas consulares, de visa o de biometría se pagan a cada entidad y no están incluidas en nuestros honorarios.</p>
-      <h2>Responsabilidades</h2>
-      <p>Nos comprometemos a prestar el servicio con diligencia. El cliente se compromete a entregar información veraz y completa y a asistir a las citas programadas.</p>
-      <h2>Uso del sitio</h2>
-      <p>La información de este sitio es orientativa y puede cambiar cuando las autoridades actualizan sus requisitos. Siempre la validamos al iniciar cada caso.</p>''',
-    'politica-de-reembolsos': '''
-      <h2>Cuándo hay reembolso</h2>
-      <ul><li>Si cancelas antes de que empecemos a trabajar en tu caso, devolvemos el valor pagado menos los costos de la transacción.</li><li>Si no podemos prestar el servicio por una causa atribuible a nosotros.</li></ul>
-      <h2>Cuándo no hay reembolso</h2>
-      <ul><li>Cuando la visa es negada: la decisión es del consulado y el servicio de asesoría ya se prestó.</li><li>Sobre las tarifas consulares, que se pagan a cada entidad.</li></ul>
-      <h2>Cómo pedirlo</h2>
-      <p>Escríbenos por correo o radica una PQRS indicando tu nombre, el trámite y el comprobante de pago. Respondemos en un máximo de 15 días hábiles.</p>''',
-    'pqrs': f'''
+PQRS_BODY = f'''
       <h2>Qué puedes radicar</h2>
-      <p>Peticiones, quejas, reclamos y sugerencias sobre nuestro servicio, el tratamiento de tus datos o un pago.</p>
-      <h2>Cómo radicarla</h2>
-      <ul><li>Por correo a <a href="mailto:{EMAIL}">{EMAIL}</a>, con el asunto «PQRS».</li><li>Por WhatsApp al {PHONE}.</li><li>En la oficina: {ADDRESS}, {HOURS.lower()}</li></ul>
+      <p>Peticiones, consultas, quejas, reclamos y sugerencias sobre nuestro servicio, el tratamiento de tus datos o un pago.</p>
+      <h2>Canales oficiales</h2>
+      <ul>
+        <li><strong>PQRS y reclamos:</strong> <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a></li>
+        <li><strong>Hábeas data y privacidad:</strong> <a href="mailto:{PRIVACY_EMAIL}">{PRIVACY_EMAIL}</a></li>
+        <li><strong>Controversias jurídicas y notificaciones contractuales:</strong> <a href="mailto:{LEGAL_EMAIL}">{LEGAL_EMAIL}</a></li>
+      </ul>
+      <p>WhatsApp y las redes sociales son canales informativos y de soporte. Las reclamaciones formales se tramitan por los correos oficiales.</p>
       <p>Incluye tu nombre, documento, datos de contacto, el trámite al que se refiere y una descripción de la solicitud.</p>
-      <h2>Plazo de respuesta</h2>
-      <p>Te confirmamos la recepción el mismo día hábil y respondemos de fondo en un máximo de 15 días hábiles.</p>''',
-}
+      <h2>Plazos de respuesta</h2>
+      <ul>
+        <li><strong>PQRS:</strong> máximo quince (15) días hábiles desde el día siguiente a la recepción.</li>
+        <li><strong>Consultas de hábeas data:</strong> máximo diez (10) días hábiles, prorrogables hasta cinco (5) días hábiles.</li>
+        <li><strong>Reclamos de hábeas data:</strong> máximo quince (15) días hábiles desde la recepción completa.</li>
+      </ul>
+      <h2>Superintendencia de Industria y Comercio</h2>
+      <p>Antes de acudir a la SIC debes presentar el reclamo directo por <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a>. Si vence el plazo sin respuesta o la respuesta no te satisface, puedes acudir a la SIC en <a href="https://www.sic.gov.co" target="_blank" rel="noopener">www.sic.gov.co</a>.</p>'''
 
 
-def legal_page(slug, name, sub):
+def legal_page(slug, name, h1, sub, pdf):
+    path = os.path.join(ROOT, 'content', 'legal', f'{slug}.html')
+    content = open(path, encoding='utf-8').read() if os.path.exists(path) else PQRS_BODY
+
     def body(R):
+        dl = (f'<a class="btn btn--primary" href="{R}assets/docs/{pdf}" download>{icon("doc")}Descargar PDF</a>' if pdf else '')
+        aside_dl = (f'<div class="aside-card"><h2>Documento oficial</h2><p>Descarga la versión en PDF de este documento.</p><div class="actions">{dl}</div></div>' if pdf else '')
         return f'''
-    {inner_hero(R, [(f"{slug}/", name)], None, sub, h1=name, photo="sellos")}
-    <section class="section section--tone" style="padding-top:clamp(3rem,5vw,4.5rem)">
-      <div class="wrap axis">
-        <div class="axis__side"><p class="small soft">Última actualización: {fdate(date.today().isoformat())}</p></div>
-        <div class="axis__main prose" data-reveal>{NOTICE}{LEGAL_BODY[slug]}</div>
+    {inner_hero(R, [(f"{slug}/", name)], None, sub, h1=h1, photo="sellos", actions=dl)}
+    <section class="section">
+      <div class="wrap doc-layout">
+        <aside class="doc-aside">
+          {aside_dl}
+          <div class="aside-card"><h2>Otros documentos</h2><ul class="doc-links">{"".join(f'<li><a href="{R}{s}/">{n}</a></li>' for s, n, *_ in LEGAL if s != slug)}</ul></div>
+        </aside>
+        <div class="prose legal">{content}</div>
       </div>
     </section>
 '''
@@ -1259,8 +1245,8 @@ def build():
         page(path, p['title'], p['desc'], lambda R, p=p: article(R, p), 'blog/', [ld, breadcrumb_ld([('blog/', 'Blog'), (path, p['title'])])])
     page('contacto/', 'Contacto y oficina en Bogotá', f'Escríbenos por WhatsApp, llámanos o visítanos en {ADDRESS}. Asesoría de visas de lunes a viernes.', contacto, 'contacto/',
          [dict(ORG_LD, **{'@type': 'ProfessionalService'}), breadcrumb_ld([('contacto/', 'Contacto')])])
-    for slug, name, sub in LEGAL:
-        page(f'{slug}/', name, sub, legal_page(slug, name, sub), '', [breadcrumb_ld([(f'{slug}/', name)])])
+    for slug, name, h1, sub, pdf in LEGAL:
+        page(f'{slug}/', name, sub, legal_page(slug, name, h1, sub, pdf), '', [breadcrumb_ld([(f'{slug}/', name)])])
     page('creditos/', 'Créditos de fotografías', 'Fuentes y licencias de las fotografías usadas en el sitio.', creditos, '', [breadcrumb_ld([('creditos/', 'Créditos')])])
     # 404 en la raíz con rutas absolutas al sitio publicado
     page('', 'Página no encontrada', 'La página que buscas no existe.', not_found, '', noindex=True, file='404.html', base=SITE + '/')

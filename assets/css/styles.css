@@ -783,6 +783,24 @@ p + p { margin-top: 0.9em; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
+/* ---------- documentos legales ---------- */
+.legal { max-width: 46rem; }
+.legal h2 { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); letter-spacing: -0.02em; }
+.legal h3 { font-size: 1.0625rem; letter-spacing: -0.01em; }
+.legal p, .legal li { font-size: 1rem; }
+.legal .legal-meta { font-family: var(--font-display); font-size: var(--step-small); color: var(--soft); }
+.legal .legal-meta + .legal-meta { margin-top: 0.25rem; }
+.legal-callout, .legal .legal-note { background: var(--surface); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+.legal-callout p { margin: 0; }
+.table-wrap { margin-top: 1.25rem; overflow-x: auto; border-radius: var(--radius); background: var(--surface); }
+.table-wrap table { width: 100%; min-width: 36rem; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.5; }
+.table-wrap th { text-align: left; font-family: var(--font-display); font-weight: 600; background: var(--navy); color: #fff; padding: 0.8rem 1rem; }
+.table-wrap td { padding: 0.9rem 1rem; vertical-align: top; }
+.table-wrap tbody tr:nth-child(even) td { background: var(--paper); }
+.badge { white-space: nowrap; display: inline-block; margin-top: 0.4rem; padding: 0.15rem 0.6rem; border-radius: 999px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: 0.8125rem; font-weight: 500; }
+.doc-links { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.doc-links a { font-family: var(--font-display); font-size: var(--step-ui); color: var(--blue); }
+
 /* ---------- créditos ---------- */
 .credits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem var(--gutter); }
 .credit { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1.25rem; align-items: center; background: var(--paper); padding: 1rem; border-radius: var(--radius); }
