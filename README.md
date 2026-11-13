@@ -51,9 +51,9 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 
 Fondos de EE. UU. y Canadá, mapas con bandera (menú y carrusel) y piezas de redes (galería "Así es el proceso" en cada servicio) en `assets/img/cliente/` y `assets/img/mapas/`. La pieza de renovación con Mickey Mouse se usa: el cliente confirmó que compró los derechos.
 
-### Intro con video
+### Video del logo
 
-El video del logo (`assets/video/intro.webm` y `intro.mp4`, acelerado a unos 6,5 s, sin audio) se muestra solo en la primera visita de cada sesión, con botón para saltarlo. No aparece si el sistema pide reducir el movimiento, y se oculta solo a los 9 s aunque falle el JavaScript.
+El video (`assets/video/intro.webm` y `intro.mp4`) se reproduce en silencio y en bucle en la sección de gerencia del inicio. Ya no se usa como pantalla de carga.
 
 ### Documentos legales
 

@@ -27,6 +27,8 @@ EMAIL = 'gdocumental@visasypasaportescolombia.com'   # gestión documental (corr
 ADDRESS = 'Carrera 45 # 108A-50, Bogotá'
 INSTAGRAM = 'https://www.instagram.com/visasypasaportescol'
 TIKTOK = 'https://www.tiktok.com/@visasypasaportescolombia'
+GOOGLE_URL = 'https://www.google.com/maps/place/Visas+y+Pasaportes+Colombia/@4.6961273,-74.0579017,17z/data=!4m6!3m5!1s0x8e3f9bfc2b338e45:0x6a2b458b3dbed205!8m2!3d4.6960788!4d-74.0551364!16s%2Fg%2F11lz4gcshh'
+GOOGLE_RATING = '5,0'  # calificación visible en el perfil de Google; actualizar si cambia
 SEMANA_URL = 'https://www.semana.com/mundo/noticias-estados-unidos/articulo/migracion-pobreza-y-desigualdad-los-retos-que-discutiran-lideres-mundiales-en-nueva-york/202646/'
 MAP_QUERY = 'Carrera 45 108A-50, Bogotá, Colombia'
 YEAR = date.today().year
@@ -125,15 +127,15 @@ PIECES = {
 }
 
 
-def gallery(R, keys, title='Así es el proceso'):
+def gallery(R, keys, title='Así es el proceso', where=''):
     items = [x for k in keys for x in PIECES[k]]
     if not items:
         return ''
     figs = ''.join(f'<figure class="pieces__item pieces__item--{"tall" if h > w else "square"}"><img src="{R}assets/img/cliente/{f}.webp" width="{w}" height="{h}" alt="{esc(a)}" loading="lazy"></figure>' for f, w, h, a in items)
     return f'''
-    <section class="section section--tone" aria-labelledby="piezas">
+    <section class="section section--tone{" only-" + where if where else ""}" aria-labelledby="piezas{where}">
       <div class="wrap">
-        <div class="sec-head"><div><h2 class="head" id="piezas">{title}</h2></div>
+        <div class="sec-head"><div><h2 class="head" id="piezas{where}">{title}</h2></div>
           <div class="pieces-nav"><button type="button" class="pieces-btn" data-dir="-1" aria-label="Anterior">{icon("arrow")}</button><button type="button" class="pieces-btn" data-dir="1" aria-label="Siguiente">{icon("arrow")}</button></div></div>
         <div class="pieces" tabindex="0" aria-roledescription="carrusel" aria-label="{title}" data-pieces>{figs}</div>
         <div class="pieces-dots" aria-hidden="true"></div>
@@ -438,7 +440,7 @@ def head(R, title, desc, path, ld=None, noindex=False):
   <link href="{FONTS}" rel="stylesheet">
   <link href="{FLAGS}" rel="stylesheet">
   <link rel="stylesheet" href="{R}assets/css/styles.css">
-  <script>document.documentElement.classList.add('js');try{{var d=document.documentElement;if(sessionStorage.getItem('vp-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('no-intro')}}else{{d.classList.add('intro-on')}}}}catch(e){{document.documentElement.classList.add('no-intro')}}</script>{lds}
+  <script>document.documentElement.classList.add('js')</script>{lds}
 </head>'''
 
 
@@ -480,14 +482,6 @@ def header(R, active):
     return f'''<body>
   {SPRITE}
   <a class="skip" href="#main">Saltar al contenido</a>
-  <div class="intro" id="intro" aria-hidden="true">
-    <video class="intro__video" muted playsinline preload="auto" poster="{R}assets/video/intro-poster.jpg">
-      <source src="{R}assets/video/intro.webm" type="video/webm">
-      <source src="{R}assets/video/intro.mp4" type="video/mp4">
-    </video>
-    <button class="intro__skip" type="button">Saltar intro</button>
-  </div>
-  <script>(function(){{var d=document.documentElement,el=document.getElementById('intro');if(!el)return;if(d.classList.contains('no-intro')){{el.remove();return}}var v=el.querySelector('video'),done=false;function end(){{if(done)return;done=true;try{{sessionStorage.setItem('vp-intro','1')}}catch(e){{}}el.classList.add('is-out');d.classList.remove('intro-on');setTimeout(function(){{el.remove()}},700)}}v.addEventListener('ended',end);v.addEventListener('error',end,true);el.querySelector('button').addEventListener('click',end);var p=v.play();if(p&&p.catch)p.catch(function(){{setTimeout(end,1200)}});setTimeout(end,8500)}})();</script>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="{R or './'}" aria-label="{BRAND}, inicio"><img src="{R}assets/img/logo.webp" alt="{BRAND}" width="640" height="274"></a>
@@ -631,7 +625,7 @@ def close_band(R, line='Hablemos de tu visa', photo='entrega'):
             <div class="actions">
               <a class="btn btn--wa" href="{wa("Hola, quiero que revisen mi caso de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
             </div>
-            <p class="cta-card__meta">{ADDRESS}</p>
+            <p class="cta-card__meta">{ADDRESS}. <a href="{GOOGLE_URL}" target="_blank" rel="noopener">{GOOGLE_RATING} ★ en Google</a></p>
           </div>
           <figure class="cta-card__photo">{img(R, photo, sizes="(max-width: 860px) 100vw, 45vw", alt=PHOTOS[photo][0])}</figure>
         </div>
@@ -730,7 +724,7 @@ def home(R):
             <div class="country__body">
               <h3><a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
               <p>Visa de turismo B1/B2 en cuatro casos.</p>
-              <p class="country__price">Asesoría desde $180.000 COP por solicitante</p>
+              <p class="country__price">Asesoría desde $200.000 COP por solicitante</p>
               <ul class="country__links">{us_links}</ul>
             </div>
           </article>''']
@@ -788,6 +782,7 @@ def home(R):
             <div><dd data-count="2000" data-prefix="+">+2.000</dd><dt>trámites de visa asesorados con éxito</dt></div>
             <div><dd data-count="6" data-prefix="+" data-suffix=" años">+6 años</dd><dt>de experiencia en procesos migratorios</dt></div>
             <div><dd>Credencial</dd><dt>de cooperación internacional</dt></div>
+            <div><dd><a class="g-rating" href="{GOOGLE_URL}" target="_blank" rel="noopener">{GOOGLE_RATING} <span class="g-stars" aria-hidden="true">★★★★★</span></a></dd><dt>calificación en Google</dt></div>
           </dl>
         </div>
       </div>
@@ -826,7 +821,7 @@ def home(R):
     <section class="section" aria-labelledby="gerencia">
       <div class="wrap about">
         <figure class="about__media" data-reveal>
-          <div class="about__photo">{img(R, "documentos", sizes="(max-width: 860px) 100vw, 50vw")}</div>
+          <div class="about__photo about__photo--video"><video class="about__video" autoplay muted loop playsinline preload="metadata" poster="{R}assets/video/intro-poster.jpg" aria-label="Animación del logo de Visas y Pasaportes Colombia"><source src="{R}assets/video/intro.webm" type="video/webm"><source src="{R}assets/video/intro.mp4" type="video/mp4"></video></div>
           <figcaption class="about__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide el consulado: nadie puede garantizarla.</figcaption>
         </figure>
         <div class="about__text" data-reveal>
@@ -1013,9 +1008,10 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
     {inner_hero(R, trail, s["h1"], s["lead"],
     side=f'<span>{country}</span><span>Visa de {"turismo" if flag_code != "us" else "turismo B1/B2"}</span>',
     actions=f'''<a class="btn btn--primary" href="{wa(msg)}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
-              <a class="btn btn--line" href="{R}contacto/" data-pay="{pay_id}">{icon("card")}Pagar con ePayco</a>''',
+              <span class="pay-cta"><a class="btn btn--line" href="{R}contacto/" data-pay="{pay_id}">{icon("card")}Pagar con ePayco</a><small>Paga tu proceso online aquí</small></span>''',
     photo=photo, split=photo.startswith('cliente/'))}
 
+{gallery(R, PIECE_MAP.get(slug, []), where='mobile')}
     <section class="section">
       <div class="wrap doc-layout">
         <aside class="doc-aside">
@@ -1040,7 +1036,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
       </div>
     </section>
 
-{gallery(R, PIECE_MAP.get(slug, []))}
+{gallery(R, PIECE_MAP.get(slug, []), where='desktop')}
     <section class="section" aria-labelledby="guias-rel">
       <div class="wrap">
         <div class="blog-home__head" data-reveal><h2 class="head" id="guias-rel">Guías relacionadas</h2><a class="more" href="{R}blog/">Ver el blog {ARROW}</a></div>
@@ -1070,7 +1066,7 @@ def us_hub(R):
     "Te acompañamos en los cuatro casos más comunes: la primera solicitud, la renovación, la visa revocada y la visa perdida o robada.",
     side=f'<span>Estados Unidos</span><span>Visa de turismo B1/B2</span>',
     actions=f'''<a class="btn btn--primary" href="{wa("Hola, quiero asesoría para la visa americana.")}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
-              <a class="btn btn--line" href="{R}contacto/" data-pay="visa-estados-unidos">{icon("card")}Pagar con ePayco</a>''',
+              <span class="pay-cta"><a class="btn btn--line" href="{R}contacto/" data-pay="visa-estados-unidos">{icon("card")}Pagar con ePayco</a><small>Paga tu proceso online aquí</small></span>''',
     photo="cliente/eeuu-fondo", split=True)}
 
     <section class="section" aria-labelledby="casos">

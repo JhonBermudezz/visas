@@ -224,7 +224,7 @@ p + p { margin-top: 0.9em; }
 .hero { flex-direction: column; }
 .hero__inner { flex: 1; }
 .hero__bar { background: var(--navy-deep); }
-.hero__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); margin: 0; padding-block: clamp(1.25rem, 3vh, 1.75rem); }
+.hero__stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gutter); margin: 0; padding-block: clamp(1.25rem, 3vh, 1.75rem); }
 .hero__stats div { display: flex; align-items: center; gap: 1rem; }
 .hero__stats dd { margin: 0; flex: none; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.625rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1; letter-spacing: -0.04em; color: #fff; }
 .hero__stats div:first-child dd { color: #ff6b75; }
@@ -769,18 +769,6 @@ p + p { margin-top: 0.9em; }
 .footer__legal { align-items: center; flex-wrap: nowrap; }
 .footer__legal p { flex: 1; }
 
-/* ---------- intro con el video del logo (primera visita de la sesión) ---------- */
-.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #d4d9de; transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms; animation: intro-safety 0s linear 9.5s forwards; }
-.intro__video { width: min(100%, 1100px); height: auto; -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); } /* taste-skill-ignore: máscara para fundir los bordes del video, no es un relleno */
-.intro__skip { position: absolute; right: var(--margin); bottom: calc(1.5rem + env(safe-area-inset-bottom)); min-height: 2.75rem; padding: 0 1.2rem; border-radius: 999px; background: rgba(11, 20, 48, 0.85); color: #fff; font-family: var(--font-display); font-weight: 500; font-size: var(--step-ui); transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
-.intro__skip:active { transform: scale(0.97); }
-@media (hover: hover) and (pointer: fine) { .intro__skip:hover { background: var(--navy-deep); } }
-.intro.is-out { opacity: 0; visibility: hidden; }
-.no-intro .intro { display: none; }
-.intro-on body { overflow: hidden; }
-@keyframes intro-safety { to { opacity: 0; visibility: hidden; } }
-@media (max-width: 700px) { .intro__video { width: 150%; max-width: none; } }
-
 /* redes en el encabezado */
 .header__social { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; color: var(--ink); transition: background-color var(--t-hover) ease, color var(--t-hover) ease; }
 .header__social svg { width: 1.3rem; height: 1.3rem; }
@@ -841,6 +829,26 @@ p + p { margin-top: 0.9em; }
 .pieces__item--tall { width: clamp(13rem, 22vw, 17rem); }
 .pieces__item--square { width: clamp(15rem, 26vw, 20rem); }
 .pieces__item img { width: 100%; height: auto; display: block; }
+
+/* ---------- video del logo en gerencia ---------- */
+.about__photo--video { background: #d4d9de; }
+.about__video { display: block; width: 100%; aspect-ratio: 848 / 478; object-fit: cover; }
+.about__media:has(.about__photo--video) { padding-bottom: 0; }
+.about__media:has(.about__photo--video) .about__note { position: relative; right: auto; bottom: auto; width: auto; margin: -2rem 1.5rem 0 3rem; }
+
+/* calificación de Google */
+.g-rating { color: #fff; text-decoration: none; display: inline-flex; align-items: baseline; gap: 0.4rem; }
+.g-stars { font-size: 0.55em; color: #fbbc04; letter-spacing: 0.05em; }
+.g-rating:hover { text-decoration: underline; text-decoration-thickness: 0.06em; }
+.cta-card__meta a { color: var(--on-navy); }
+
+/* botón de pago con subtítulo */
+.pay-cta { display: inline-flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.pay-cta small { font-family: var(--font-display); font-size: 0.8125rem; color: var(--on-navy); }
+
+/* galería: arriba en celular, abajo en escritorio */
+.only-mobile { display: none; }
+@media (max-width: 860px) { .only-mobile { display: block; } .only-desktop { display: none; } }
 
 /* ---------- pasos del servicio ---------- */
 .prose ol.steps { list-style: none; padding: 0; margin-top: 1.25rem; display: grid; gap: 0.75rem; counter-reset: paso; }

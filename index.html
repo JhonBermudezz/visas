@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
-  <script>document.documentElement.classList.add('js');try{var d=document.documentElement;if(sessionStorage.getItem('vp-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('no-intro')}else{d.classList.add('intro-on')}}catch(e){document.documentElement.classList.add('no-intro')}</script>
+  <script>document.documentElement.classList.add('js')</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Visas y Pasaportes Colombia", "url": "https://jhonbermudezz.github.io/visas/", "logo": "https://jhonbermudezz.github.io/visas/assets/img/logo.png", "image": "https://jhonbermudezz.github.io/visas/assets/img/bogota.webp", "email": "gdocumental@visasypasaportescolombia.com", "areaServed": "CO", "address": {"@type": "PostalAddress", "streetAddress": "Carrera 45 # 108A-50", "addressLocality": "Bogotá", "addressCountry": "CO"}, "sameAs": ["https://www.instagram.com/visasypasaportescol", "https://www.tiktok.com/@visasypasaportescolombia"], "description": "Asesoría privada en visas de Estados Unidos, Reino Unido, Canadá, Australia y Malasia desde Bogotá."}</script>
 </head>
 <body>
@@ -43,14 +43,6 @@
   <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.8" y="5.5" width="18.4" height="13" rx="1.5"/><path d="M2.8 9.8h18.4M6.5 15h4"/></g></symbol>
 </svg>
   <a class="skip" href="#main">Saltar al contenido</a>
-  <div class="intro" id="intro" aria-hidden="true">
-    <video class="intro__video" muted playsinline preload="auto" poster="assets/video/intro-poster.jpg">
-      <source src="assets/video/intro.webm" type="video/webm">
-      <source src="assets/video/intro.mp4" type="video/mp4">
-    </video>
-    <button class="intro__skip" type="button">Saltar intro</button>
-  </div>
-  <script>(function(){var d=document.documentElement,el=document.getElementById('intro');if(!el)return;if(d.classList.contains('no-intro')){el.remove();return}var v=el.querySelector('video'),done=false;function end(){if(done)return;done=true;try{sessionStorage.setItem('vp-intro','1')}catch(e){}el.classList.add('is-out');d.classList.remove('intro-on');setTimeout(function(){el.remove()},700)}v.addEventListener('ended',end);v.addEventListener('error',end,true);el.querySelector('button').addEventListener('click',end);var p=v.play();if(p&&p.catch)p.catch(function(){setTimeout(end,1200)});setTimeout(end,8500)})();</script>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="./" aria-label="Visas y Pasaportes Colombia, inicio"><img src="assets/img/logo.webp" alt="Visas y Pasaportes Colombia" width="640" height="274"></a>
@@ -131,6 +123,7 @@
             <div><dd data-count="2000" data-prefix="+">+2.000</dd><dt>trámites de visa asesorados con éxito</dt></div>
             <div><dd data-count="6" data-prefix="+" data-suffix=" años">+6 años</dd><dt>de experiencia en procesos migratorios</dt></div>
             <div><dd>Credencial</dd><dt>de cooperación internacional</dt></div>
+            <div><dd><a class="g-rating" href="https://www.google.com/maps/place/Visas+y+Pasaportes+Colombia/@4.6961273,-74.0579017,17z/data=!4m6!3m5!1s0x8e3f9bfc2b338e45:0x6a2b458b3dbed205!8m2!3d4.6960788!4d-74.0551364!16s%2Fg%2F11lz4gcshh" target="_blank" rel="noopener">5,0 <span class="g-stars" aria-hidden="true">★★★★★</span></a></dd><dt>calificación en Google</dt></div>
           </dl>
         </div>
       </div>
@@ -148,7 +141,7 @@
             <div class="country__body">
               <h3><a href="servicios/visa-estados-unidos/">Estados Unidos</a></h3>
               <p>Visa de turismo B1/B2 en cuatro casos.</p>
-              <p class="country__price">Asesoría desde $180.000 COP por solicitante</p>
+              <p class="country__price">Asesoría desde $200.000 COP por solicitante</p>
               <ul class="country__links"><li><a href="servicios/visa-estados-unidos/primera-vez/">Primera vez <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li><li><a href="servicios/visa-estados-unidos/renovacion/">Renovación <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li><li><a href="servicios/visa-estados-unidos/visa-revocada/">Visa revocada <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li><li><a href="servicios/visa-estados-unidos/visa-perdida/">Visa perdida o robada <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"></use></svg></a></li></ul>
             </div>
           </article><article class="country">
@@ -220,7 +213,7 @@
     <section class="section" aria-labelledby="gerencia">
       <div class="wrap about">
         <figure class="about__media" data-reveal>
-          <div class="about__photo"><img src="assets/img/documentos.webp" srcset="assets/img/documentos-sm.webp 960w, assets/img/documentos.webp 1920w" sizes="(max-width: 860px) 100vw, 50vw" width="1920" height="1280" alt="Pasaportes y formularios de solicitud de visa sobre un escritorio" loading="lazy" decoding="async"></div>
+          <div class="about__photo about__photo--video"><video class="about__video" autoplay muted loop playsinline preload="metadata" poster="assets/video/intro-poster.jpg" aria-label="Animación del logo de Visas y Pasaportes Colombia"><source src="assets/video/intro.webm" type="video/webm"><source src="assets/video/intro.mp4" type="video/mp4"></video></div>
           <figcaption class="about__note"><strong>Lo que decide el consulado</strong>Preparamos tu solicitud para que sea completa y coherente. La aprobación la decide el consulado: nadie puede garantizarla.</figcaption>
         </figure>
         <div class="about__text" data-reveal>
@@ -287,7 +280,7 @@
             <div class="actions">
               <a class="btn btn--wa" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20que%20revisen%20mi%20caso%20de%20visa." target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>Escribir por WhatsApp</a>
             </div>
-            <p class="cta-card__meta">Carrera 45 # 108A-50, Bogotá</p>
+            <p class="cta-card__meta">Carrera 45 # 108A-50, Bogotá. <a href="https://www.google.com/maps/place/Visas+y+Pasaportes+Colombia/@4.6961273,-74.0579017,17z/data=!4m6!3m5!1s0x8e3f9bfc2b338e45:0x6a2b458b3dbed205!8m2!3d4.6960788!4d-74.0551364!16s%2Fg%2F11lz4gcshh" target="_blank" rel="noopener">5,0 ★ en Google</a></p>
           </div>
           <figure class="cta-card__photo"><img src="assets/img/entrega.webp" srcset="assets/img/entrega-sm.webp 960w, assets/img/entrega.webp 1280w" sizes="(max-width: 860px) 100vw, 45vw" width="1280" height="1707" alt="Asesor entregando un pasaporte y una carpeta de documentos" loading="lazy" decoding="async"></figure>
         </div>
