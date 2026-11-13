@@ -257,3 +257,37 @@ document.addEventListener('click', (e) => {
   update();
   addEventListener('scroll', update, { passive: true });
 })();
+
+/* Carrusel de piezas del cliente: flechas, puntos y avance automático */
+document.querySelectorAll('[data-pieces]').forEach((track) => {
+  const section = track.closest('section');
+  const items = [...track.children];
+  const prev = section.querySelector('[data-dir="-1"]');
+  const next = section.querySelector('[data-dir="1"]');
+  const dots = section.querySelector('.pieces-dots');
+  dots.innerHTML = items.map(() => '<span></span>').join('');
+  const step = () => items[0].getBoundingClientRect().width + 16;
+  const max = () => track.scrollWidth - track.clientWidth - 2;
+  const update = () => {
+    const i = Math.round(track.scrollLeft / step());
+    [...dots.children].forEach((d, k) => d.classList.toggle('is-on', k === Math.min(i, items.length - 1)));
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max();
+  };
+  const go = (dir) => {
+    if (dir > 0 && track.scrollLeft >= max()) track.scrollTo({ left: 0 });
+    else track.scrollBy({ left: dir * step() });
+  };
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+  if (max() <= 0) { section.querySelector('.pieces-nav').hidden = true; dots.hidden = true; }
+  update();
+  if (reduced) return;
+  let timer; let paused = false;
+  const tick = () => { if (!paused && !document.hidden) go(1); };
+  const start = () => { clearInterval(timer); timer = setInterval(tick, 4500); };
+  ['pointerenter', 'focusin', 'touchstart'].forEach((e) => section.addEventListener(e, () => { paused = true; }, { passive: true }));
+  ['pointerleave', 'focusout'].forEach((e) => section.addEventListener(e, () => { paused = false; }));
+  start();
+});

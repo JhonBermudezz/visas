@@ -28,7 +28,7 @@ EMAIL = 'contacto@visasypasaportes.com.co'           # pendiente
 ADDRESS = 'Carrera 45, Bogotá'                       # número exacto pendiente
 HOURS = 'Lunes a viernes, 8:00 a. m. a 5:00 p. m.'   # pendiente
 INSTAGRAM = 'https://www.instagram.com/visasypasaportescol'
-TIKTOK = ''                                          # pendiente: enlace de TikTok
+TIKTOK = 'https://www.tiktok.com/@visasypasaportescolombia'
 SEMANA_URL = 'https://www.semana.com/mundo/noticias-estados-unidos/articulo/migracion-pobreza-y-desigualdad-los-retos-que-discutiran-lideres-mundiales-en-nueva-york/202646/'
 MAP_QUERY = 'Carrera 45, Bogotá, Colombia'
 YEAR = date.today().year
@@ -134,8 +134,10 @@ def gallery(R, keys, title='Así es el proceso'):
     return f'''
     <section class="section section--tone" aria-labelledby="piezas">
       <div class="wrap">
-        <div class="sec-head"><div><h2 class="head" id="piezas">{title}</h2><p class="lead">Desliza para ver cada paso.</p></div></div>
-        <div class="pieces" tabindex="0" aria-label="{title}" data-reveal>{figs}</div>
+        <div class="sec-head"><div><h2 class="head" id="piezas">{title}</h2></div>
+          <div class="pieces-nav"><button type="button" class="pieces-btn" data-dir="-1" aria-label="Anterior">{icon("arrow")}</button><button type="button" class="pieces-btn" data-dir="1" aria-label="Siguiente">{icon("arrow")}</button></div></div>
+        <div class="pieces" tabindex="0" aria-roledescription="carrusel" aria-label="{title}" data-pieces>{figs}</div>
+        <div class="pieces-dots" aria-hidden="true"></div>
       </div>
     </section>'''
 
@@ -714,9 +716,8 @@ def home(R):
     for i, s in enumerate(SLIDES):
         act = ' is-active' if i == 0 else ''
         imgs.append(f'<div class="hero__img{act}" data-slide-img>{img(R, s["photo"], eager=i == 0)}</div>')
-        tabs.append(f'<button class="hero__tab" type="button" role="tab" id="tab-{i}" aria-controls="slide-{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{map_ico(R, s["flag"]) if s["flag"] in MAPS else flag(s["flag"])}{s["tab"]}</button>')
+        tabs.append(f'<button class="hero__tab" type="button" role="tab" id="tab-{i}" aria-controls="slide-{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{s["tab"]}</button>')
         slides.append(f'''<div class="hero__slide{act}" id="slide-{i}" role="tabpanel" aria-labelledby="tab-{i}"{"" if i == 0 else " aria-hidden=\"true\""}>
-              {('<p class="hero__maps">' + ''.join(map_ico(R, m, 'map-ico map-ico--hero') for m in s['maps']) + '</p>') if s.get('maps') else ''}
               <p class="title">{s["title"]}</p>
               <p class="lead">{s["lead"]}</p>
             </div>''')
@@ -1010,7 +1011,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
     rel = ''.join(post_card(R, p) for p in related)
     return f'''
     {inner_hero(R, trail, s["h1"], s["lead"],
-    side=f'{flag(flag_code)}<span>{country}</span><span>Visa de {"turismo" if flag_code != "us" else "turismo B1/B2"}</span>',
+    side=f'<span>{country}</span><span>Visa de {"turismo" if flag_code != "us" else "turismo B1/B2"}</span>',
     actions=f'''<a class="btn btn--primary" href="{wa(msg)}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
               <a class="btn btn--line" href="{R}contacto/" data-pay="{pay_id}">{icon("card")}Pagar con ePayco</a>''',
     photo=photo, split=photo.startswith('cliente/'))}
@@ -1067,7 +1068,7 @@ def us_hub(R):
     return f'''
     {inner_hero(R, [("servicios/", "Servicios"), ("servicios/visa-estados-unidos/", "Estados Unidos")], ["Visa americana", "desde Bogotá"],
     "Te acompañamos en los cuatro casos más comunes: la primera solicitud, la renovación, la visa revocada y la visa perdida o robada.",
-    side=f'{flag("us")}<span>Estados Unidos</span><span>Visa de turismo B1/B2</span>',
+    side=f'<span>Estados Unidos</span><span>Visa de turismo B1/B2</span>',
     actions=f'''<a class="btn btn--primary" href="{wa("Hola, quiero asesoría para la visa americana.")}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
               <a class="btn btn--line" href="{R}contacto/" data-pay="visa-estados-unidos">{icon("card")}Pagar con ePayco</a>''',
     photo="cliente/eeuu-fondo", split=True)}

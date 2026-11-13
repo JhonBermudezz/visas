@@ -824,7 +824,18 @@ p + p { margin-top: 0.9em; }
 .map-ico--hero { height: 2.4rem; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25)); } /* taste-skill-ignore: contorno para separar el mapa de la foto */
 
 /* ---------- galería de piezas del cliente ---------- */
-.pieces { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.75rem; scrollbar-width: thin; }
+.pieces { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; }
+.pieces::-webkit-scrollbar { display: none; }
+.pieces-nav { display: flex; gap: 0.5rem; }
+.pieces-btn { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--navy); color: #fff; transition: background-color var(--t-hover) ease, opacity var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+.pieces-btn svg { width: 1.2rem; height: 1.2rem; }
+.pieces-btn[data-dir="-1"] svg { transform: rotate(180deg); }
+.pieces-btn:active { transform: scale(0.94); }
+.pieces-btn:disabled { opacity: 0.35; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .pieces-btn:not(:disabled):hover { background: var(--red); } }
+.pieces-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.pieces-dots span { width: 0.55rem; height: 0.55rem; border-radius: 999px; background: var(--surface-2); transition: background-color var(--t-ui) ease, width var(--t-ui) var(--ease-out); }
+.pieces-dots span.is-on { width: 1.6rem; background: var(--red); }
 .pieces__item { flex: none; margin: 0; scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; background: var(--paper); }
 .pieces__item--tall { width: clamp(13rem, 22vw, 17rem); }
 .pieces__item--square { width: clamp(15rem, 26vw, 20rem); }
