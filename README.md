@@ -47,6 +47,10 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 - Cabeceras a pantalla completa con foto y velo azul marino, botones tipo píldora y esquinas suaves en fotos y bloques.
 - Movimiento: carrusel con barras de progreso, fotos de cabecera que se desplazan más lento que la página, cifras que cuentan al aparecer y entradas escalonadas.
 
+### Material del cliente
+
+Fondos de EE. UU. y Canadá, mapas con bandera (menú y carrusel) y piezas de redes (galería "Así es el proceso" en cada servicio) en `assets/img/cliente/` y `assets/img/mapas/`. La pieza de renovación con Mickey Mouse no se usa por derechos de autor.
+
 ### Intro con video
 
 El video del logo (`assets/video/intro.webm` y `intro.mp4`, acelerado a unos 6,5 s, sin audio) se muestra solo en la primera visita de cada sesión, con botón para saltarlo. No aparece si el sistema pide reducir el movimiento, y se oculta solo a los 9 s aunque falle el JavaScript.

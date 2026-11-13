@@ -213,6 +213,7 @@ p + p { margin-top: 0.9em; }
 .hero__tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; max-width: 34rem; margin-top: clamp(2rem, 5vh, 3rem); }
 .hero__tab { position: relative; display: flex; align-items: center; gap: 0.7rem; min-height: 3.25rem; padding-top: 0.9rem; text-align: left; font-family: var(--font-display); font-weight: 500; font-size: var(--step-ui); color: rgba(255, 255, 255, 0.62); transition: color var(--t-hover) ease; }
 .hero__tab .fi { width: 1.4rem; height: 1.05rem; border-radius: 3px; }
+.hero__tab .map-ico { height: 1.4rem; width: 1.9rem; object-fit: contain; }
 .hero__tab::before, .hero__tab::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; border-radius: 2px; }
 .hero__tab::before { background: rgba(255, 255, 255, 0.28); }
 .hero__tab::after { background: #fff; transform: scaleX(0); transform-origin: left; }
@@ -801,6 +802,33 @@ p + p { margin-top: 0.9em; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ---------- cabecera partida (fotos del cliente) ---------- */
+.phero--split { background: var(--navy); }
+.phero--split .phero__media { left: 50%; z-index: 0; }
+.phero--split .phero__media img { object-position: center 30%; }
+.phero--split .phero__body { max-width: min(36rem, 46%); }
+.phero--split .display { max-width: 13ch; font-size: clamp(2.75rem, 1rem + 4.6vw, 5.5rem); }
+@media (max-width: 860px) {
+  .phero--split { display: grid; min-height: 0; }
+  .phero--split .phero__media { position: relative; inset: auto; left: 0; height: 15rem; order: -1; }
+  .phero--split .phero__body { max-width: none; }
+}
+
+/* ---------- mapas con bandera ---------- */
+.map-ico { width: auto; height: 1.6rem; flex: none; }
+.mega__group h3 .map-ico { height: 1.75rem; }
+.mega__dest .map-ico { height: 1.75rem; width: 2.75rem; object-fit: contain; }
+.mobile-menu details .map-ico { height: 1.4rem; width: 2.25rem; object-fit: contain; }
+.hero__maps { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
+.map-ico--hero { height: 2.4rem; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25)); } /* taste-skill-ignore: contorno para separar el mapa de la foto */
+
+/* ---------- galería de piezas del cliente ---------- */
+.pieces { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.75rem; scrollbar-width: thin; }
+.pieces__item { flex: none; margin: 0; scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; background: var(--paper); }
+.pieces__item--tall { width: clamp(13rem, 22vw, 17rem); }
+.pieces__item--square { width: clamp(15rem, 26vw, 20rem); }
+.pieces__item img { width: 100%; height: auto; display: block; }
 
 /* ---------- pasos del servicio ---------- */
 .prose ol.steps { list-style: none; padding: 0; margin-top: 1.25rem; display: grid; gap: 0.75rem; counter-reset: paso; }

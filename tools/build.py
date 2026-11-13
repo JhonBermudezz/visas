@@ -95,7 +95,50 @@ PHOTOS = {
     'documentos': ('Pasaportes y formularios de solicitud de visa sobre un escritorio', 1920, 1280, 'Ilustrativa'),
     'entrega': ('Asesor entregando un pasaporte y una carpeta de documentos', 1280, 1707, 'Ilustrativa'),
     'mapa': ('Mapa del mundo punteado', 1920, 1080, 'Ilustrativa'),
+    # Material gráfico del cliente
+    'cliente/eeuu-fondo': ('Familia viajera frente a la Estatua de la Libertad', 1600, 1131, 'Visas y Pasaportes Colombia'),
+    'cliente/canada-fondo': ('Viajeros con la bandera de Colombia frente a la Torre de Calgary, Canadá', 1600, 1131, 'Visas y Pasaportes Colombia'),
 }
+
+# Mapas con bandera enviados por el cliente
+MAPS = {'us': ('eeuu', 219), 'ca': ('canada', 190), 'gb': ('reino-unido', 134), 'au': ('australia', 169), 'my': ('malasia', 238)}
+
+
+def map_ico(R, code, cls='map-ico'):
+    name, w = MAPS[code]
+    return f'<img class="{cls}" src="{R}assets/img/mapas/{name}.png" width="{w}" height="160" alt="" loading="lazy">'
+
+
+# Piezas gráficas del cliente para la galería de cada servicio (archivo, ancho, alto, texto alternativo)
+PIECES = {
+    'eeuu': [('paso1-eeuu', 720, 1280, 'Paso 1: inscripción en el Centro de Atención al Solicitante de la Embajada Americana'),
+             ('paso2-eeuu', 720, 1280, 'Paso 2: pago de la tasa consular de la Embajada Americana, 795.000 pesos'),
+             ('paso3-eeuu', 720, 1280, 'Paso 3: agendamiento de citas de biométricos y entrevista consular'),
+             ('paso4-eeuu', 720, 1280, 'Paso 4: realización del formulario DS-160 para la visa B1/B2')],
+    'canada': [('paso1-canada', 720, 720, 'Solicitud de visa a Canadá'),
+               ('paso2-canada', 720, 720, 'La solicitud requiere de tres formularios'),
+               ('paso3-canada', 720, 720, 'El costo de la solicitud es de 185 dólares canadienses'),
+               ('paso4-canada', 720, 720, 'El tiempo de solicitud es de un mes, incluida la toma de huellas y fotos'),
+               ('paso5-canada', 720, 720, 'El proceso es en línea a través del portal GCKey de Canadá')],
+    'primera-vez': [('precio-primera-vez', 720, 1280, 'Solicitud de visa americana por primera vez: valor por solicitante 200.000 pesos')],
+    'guia': [('guia-primera-vez', 720, 1280, 'Visa americana: guía para tu solicitud de visa por primera vez')],
+    'reino-unido': [('pieza-reino-unido', 720, 1280, 'Visa Reino Unido')],
+}
+
+
+def gallery(R, keys, title='Así es el proceso'):
+    items = [x for k in keys for x in PIECES[k]]
+    if not items:
+        return ''
+    figs = ''.join(f'<figure class="pieces__item pieces__item--{"tall" if h > w else "square"}"><img src="{R}assets/img/cliente/{f}.webp" width="{w}" height="{h}" alt="{esc(a)}" loading="lazy"></figure>' for f, w, h, a in items)
+    return f'''
+    <section class="section section--tone" aria-labelledby="piezas">
+      <div class="wrap">
+        <div class="sec-head"><div><h2 class="head" id="piezas">{title}</h2><p class="lead">Desliza para ver cada paso.</p></div></div>
+        <div class="pieces" tabindex="0" aria-label="{title}" data-reveal>{figs}</div>
+      </div>
+    </section>'''
+
 CREDIT_KEYS = {'west-front': 'capitolio', 'westminster': 'westminster', 'ottawa': 'ottawa', 'sydney': 'sidney', 'petronas': 'petronas',
                'cerros': 'bogota', 'melbourne': 'salidas', 'myanmar': 'sellos', 'taxi': 'taxi', 'candelaria': 'candelaria'}
 
@@ -208,7 +251,7 @@ COUNTRIES = [
         'note': 'Los documentos en español suelen necesitar traducción. Te decimos cuáles antes de que pagues una traducción que no hace falta.',
     },
     {
-        'slug': 'visa-canada', 'country': 'Canadá', 'flag': 'ca', 'photo': 'ottawa', 'cls': 'ca',
+        'slug': 'visa-canada', 'country': 'Canadá', 'flag': 'ca', 'photo': 'cliente/canada-fondo', 'cls': 'ca',
         'h1': ['Visa de turismo', 'para Canadá'],
         'title': 'Visa de turismo para Canadá desde Colombia',
         'desc': 'Visa de visitante para Canadá: revisamos si aplicas a visa o a eTA, diligenciamos la solicitud en línea y te guiamos en la biometría.',
@@ -400,11 +443,11 @@ def flag(code, extra=''):
 def mega(R):
     subs = ''.join(f'<li><a href="{R}servicios/visa-estados-unidos/{s["slug"]}/">{s["menu"]}</a></li>' for s in US_SUBS)
     dest = ''.join(
-        f'<a href="{R}servicios/{c["slug"]}/">{flag(c["flag"])}<span>{c["country"]}<small>Visa de turismo</small></span></a>'
+        f'<a href="{R}servicios/{c["slug"]}/">{map_ico(R, c["flag"])}<span>{c["country"]}<small>Visa de turismo</small></span></a>'
         for c in COUNTRIES)
     return f'''<div class="mega" id="menu-servicios">
               <div class="mega__group">
-                <h3>{flag("us")}<a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
+                <h3>{map_ico(R, "us")}<a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
                 <ul class="mega__sub">{subs}</ul>
               </div>
               <div class="mega__dest">{dest}</div>
@@ -427,7 +470,7 @@ def header(R, active):
         else:
             items.append(f'<li><a class="nav__link" href="{R}{href}"{cur}>{label}</a></li>')
     msubs = ''.join(f'<li><a class="sub" href="{R}servicios/visa-estados-unidos/{s["slug"]}/">{s["menu"]}</a></li>' for s in US_SUBS)
-    mdest = ''.join(f'<li><a href="{R}servicios/{c["slug"]}/">{flag(c["flag"])}{c["country"]}</a></li>' for c in COUNTRIES)
+    mdest = ''.join(f'<li><a href="{R}servicios/{c["slug"]}/">{map_ico(R, c["flag"])}{c["country"]}</a></li>' for c in COUNTRIES)
     return f'''<body>
   {SPRITE}
   <a class="skip" href="#main">Saltar al contenido</a>
@@ -461,7 +504,7 @@ def header(R, active):
       <li><a href="{R or './'}">Inicio</a></li>
       <li><details><summary>Servicios {icon("down")}</summary>
         <ul>
-          <li><a href="{R}servicios/visa-estados-unidos/">{flag("us")}Estados Unidos</a></li>
+          <li><a href="{R}servicios/visa-estados-unidos/">{map_ico(R, "us")}Estados Unidos</a></li>
           {msubs}
           {mdest}
           <li><a href="{R}servicios/">Todos los servicios</a></li>
@@ -549,12 +592,17 @@ def lines(parts, tag='h1', cls='display lines', idattr=''):
     return f'<{tag} class="{cls}"{idattr}>{inner}</{tag}>'
 
 
-def inner_hero(R, trail, h1_lines, lead, side='', actions='', photo=None, h1=None, photo_alt=None):
-    media = f'<div class="phero__media" data-parallax>{img(R, photo, eager=True, alt=photo_alt)}</div><div class="scrim"></div>' if photo else ''
+def inner_hero(R, trail, h1_lines, lead, side='', actions='', photo=None, h1=None, photo_alt=None, split=False):
+    media = ''
+    if photo:
+        parallax = '' if split else ' data-parallax'
+        scrim = '' if split else '<div class="scrim"></div>'
+        sizes = '(max-width: 860px) 100vw, 50vw' if split else '100vw'
+        media = f'<div class="phero__media"{parallax}>{img(R, photo, eager=True, alt=photo_alt, sizes=sizes)}</div>{scrim}'
     title = lines(h1_lines) if h1_lines else f'<h1 class="display display--long lines"><span class="line"><span data-line>{h1}</span></span></h1>'
     acts = f'<div class="actions">{actions}</div>' if actions else ''
     meta = f'<p class="phero__side">{side}</p>' if side else ''
-    return f'''<section class="phero{"" if photo else " phero--plain"}">
+    return f'''<section class="phero{"" if photo else " phero--plain"}{" phero--split" if split else ""}">
       {media}
       <div class="wrap phero__inner">
         {crumbs(R, trail)}
@@ -654,9 +702,9 @@ def page(path, title, desc, body, active='', ld=None, noindex=False, file=None, 
 SLIDES = [
     {'tab': 'Colombia', 'flag': 'co', 'photo': 'hero-familia', 'title': 'Desde Bogotá, para todo el país',
      'lead': 'Preparamos tu solicitud de visa para Estados Unidos, Reino Unido, Canadá, Australia y Malasia: revisamos tu caso, ordenamos los documentos y te acompañamos hasta la cita.'},
-    {'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'hero-eeuu', 'title': 'Visa americana, bien preparada',
+    {'maps': ['us'], 'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'hero-eeuu', 'title': 'Visa americana, bien preparada',
      'lead': 'Primera vez, renovación, visas revocadas o perdidas. Revisamos tu perfil antes de diligenciar el DS-160 y te preparamos para la entrevista.'},
-    {'tab': 'Más destinos', 'flag': 'gb', 'photo': 'hero-destinos', 'title': 'Reino Unido, Canadá, Australia y Malasia',
+    {'maps': ['gb', 'ca', 'au', 'my'], 'tab': 'Más destinos', 'flag': 'gb', 'photo': 'hero-destinos', 'title': 'Reino Unido, Canadá, Australia y Malasia',
      'lead': 'Visas de turismo con solicitud en línea, soportes en orden y cita biométrica cuando el país la exige.'},
 ]
 
@@ -666,15 +714,16 @@ def home(R):
     for i, s in enumerate(SLIDES):
         act = ' is-active' if i == 0 else ''
         imgs.append(f'<div class="hero__img{act}" data-slide-img>{img(R, s["photo"], eager=i == 0)}</div>')
-        tabs.append(f'<button class="hero__tab" type="button" role="tab" id="tab-{i}" aria-controls="slide-{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{flag(s["flag"])}{s["tab"]}</button>')
+        tabs.append(f'<button class="hero__tab" type="button" role="tab" id="tab-{i}" aria-controls="slide-{i}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}">{map_ico(R, s["flag"]) if s["flag"] in MAPS else flag(s["flag"])}{s["tab"]}</button>')
         slides.append(f'''<div class="hero__slide{act}" id="slide-{i}" role="tabpanel" aria-labelledby="tab-{i}"{"" if i == 0 else " aria-hidden=\"true\""}>
+              {('<p class="hero__maps">' + ''.join(map_ico(R, m, 'map-ico map-ico--hero') for m in s['maps']) + '</p>') if s.get('maps') else ''}
               <p class="title">{s["title"]}</p>
               <p class="lead">{s["lead"]}</p>
             </div>''')
 
     us_links = ''.join(f'<li><a href="{R}servicios/visa-estados-unidos/{x["slug"]}/">{x["name"]} {ARROW}</a></li>' for x in US_SUBS)
     cards = [f'''<article class="country country--us">
-            <a class="country__img" href="{R}servicios/visa-estados-unidos/" tabindex="-1" aria-hidden="true">{img(R, "capitolio", sizes="(max-width: 860px) 100vw, 66vw")}</a>
+            <a class="country__img" href="{R}servicios/visa-estados-unidos/" tabindex="-1" aria-hidden="true">{img(R, "cliente/eeuu-fondo", sizes="(max-width: 860px) 100vw, 66vw")}</a>
             <span class="country__flag">{flag("us", " fis")}</span>
             <div class="country__body">
               <h3><a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
@@ -905,7 +954,7 @@ def nosotros(R):
 def servicios(R):
     us_list = ''.join(f'<span>{s["name"]}</span>' for s in US_SUBS)
     tiles = [f'''<a class="dest dest--us" href="{R}servicios/visa-estados-unidos/">
-            {img(R, "capitolio", eager=True, sizes="(max-width: 860px) 100vw, 66vw")}
+            {img(R, "cliente/eeuu-fondo", eager=True, sizes="(max-width: 860px) 100vw, 66vw")}
             <div class="dest__body">{flag("us")}<h2>Estados Unidos</h2><div class="dest__us-list">{us_list}</div></div>
           </a>''']
     for c in COUNTRIES:
@@ -964,7 +1013,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
     side=f'{flag(flag_code)}<span>{country}</span><span>Visa de {"turismo" if flag_code != "us" else "turismo B1/B2"}</span>',
     actions=f'''<a class="btn btn--primary" href="{wa(msg)}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
               <a class="btn btn--line" href="{R}contacto/" data-pay="{pay_id}">{icon("card")}Pagar con ePayco</a>''',
-    photo=photo)}
+    photo=photo, split=photo.startswith('cliente/'))}
 
     <section class="section">
       <div class="wrap doc-layout">
@@ -990,7 +1039,8 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
       </div>
     </section>
 
-    <section class="section section--tone" aria-labelledby="guias-rel">
+{gallery(R, PIECE_MAP.get(slug, []))}
+    <section class="section" aria-labelledby="guias-rel">
       <div class="wrap">
         <div class="blog-home__head" data-reveal><h2 class="head" id="guias-rel">Guías relacionadas</h2><a class="more" href="{R}blog/">Ver el blog {ARROW}</a></div>
         <div class="post-grid" data-reveal>{rel}</div>
@@ -998,6 +1048,9 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
     </section>
 {close_band(R)}
 '''
+
+
+PIECE_MAP = {'primera-vez': ['primera-vez', 'eeuu'], 'renovacion': ['eeuu'], 'visa-canada': ['canada'], 'visa-reino-unido': ['reino-unido']}
 
 
 def service_ld(name, desc, path):
@@ -1017,7 +1070,7 @@ def us_hub(R):
     side=f'{flag("us")}<span>Estados Unidos</span><span>Visa de turismo B1/B2</span>',
     actions=f'''<a class="btn btn--primary" href="{wa("Hola, quiero asesoría para la visa americana.")}" target="_blank" rel="noopener" data-track="whatsapp">Solicitar asesoría</a>
               <a class="btn btn--line" href="{R}contacto/" data-pay="visa-estados-unidos">{icon("card")}Pagar con ePayco</a>''',
-    photo="capitolio")}
+    photo="cliente/eeuu-fondo", split=True)}
 
     <section class="section" aria-labelledby="casos">
       <div class="wrap">
@@ -1026,7 +1079,8 @@ def us_hub(R):
       </div>
     </section>
 
-    <section class="section section--tone" aria-labelledby="guias-rel">
+{gallery(R, ['guia', 'eeuu'])}
+    <section class="section" aria-labelledby="guias-rel">
       <div class="wrap">
         <div class="blog-home__head" data-reveal><h2 class="head" id="guias-rel">Guías sobre la visa americana</h2><a class="more" href="{R}blog/">Ver el blog {ARROW}</a></div>
         <div class="post-grid" data-reveal>{rel}</div>
@@ -1209,7 +1263,7 @@ def creditos(R):
         rows.append(f'''<li class="credit">{img(R, key, sizes="160px", eager=True)}<div><strong>{esc(name)}</strong>
               <span>{esc(c["creator"])}. Licencia <a href="{c["licenseUrl"]}" target="_blank" rel="noopener">{c["license"]}</a>. <a href="{c["page"]}" target="_blank" rel="noopener">Ver la fuente</a>.</span></div></li>''')
     return f'''
-    {inner_hero(R, [("creditos/", "Créditos")], None, "Las fotografías de destinos y de Bogotá vienen de colecciones abiertas y se usan según su licencia. Las imágenes de viajeros y documentos son ilustrativas, generadas con inteligencia artificial: no muestran clientes reales ni a nuestro equipo.", h1="Créditos de fotografías", photo="salidas")}
+    {inner_hero(R, [("creditos/", "Créditos")], None, "Las fotografías de destinos y de Bogotá vienen de colecciones abiertas y se usan según su licencia. Algunas imágenes de viajeros y documentos son ilustrativas, generadas con inteligencia artificial: no muestran clientes reales ni a nuestro equipo. Los mapas, fondos y piezas de cada visa son material gráfico de Visas y Pasaportes Colombia.", h1="Créditos de fotografías", photo="salidas")}
     <section class="section section--tone">
       <div class="wrap"><ul class="credits" data-reveal>{"".join(rows)}</ul></div>
     </section>
@@ -1241,7 +1295,7 @@ def build():
     for s in US_SUBS:
         path = f'{p_us}{s["slug"]}/'
         trail = [('servicios/', 'Servicios'), (p_us, 'Estados Unidos'), (path, s['name'])]
-        page(path, s['title'], s['desc'], lambda R, s=s, trail=trail: service_detail(R, s, 'Estados Unidos', 'us', 'capitolio', trail, f'us-{s["slug"]}'),
+        page(path, s['title'], s['desc'], lambda R, s=s, trail=trail: service_detail(R, s, 'Estados Unidos', 'us', 'cliente/eeuu-fondo', trail, f'us-{s["slug"]}'),
              'servicios/', [service_ld(s['title'], s['desc'], path), breadcrumb_ld(trail)])
     for c in COUNTRIES:
         path = f'servicios/{c["slug"]}/'
