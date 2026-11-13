@@ -69,7 +69,7 @@ La primera versión (clásica, con serifa) quedó guardada como copia fija en `l
 
 En `tools/build.py` (bloque "Datos del negocio"):
 
-- Teléfono y WhatsApp, correo, dirección exacta, horario y dominio definitivo (`SITE`).
+- Teléfono y WhatsApp, dirección exacta, horario y dominio definitivo (`SITE`).
 - Instagram ya enlazado (visasypasaportescol). TikTok: pendiente; mientras `TIKTOK` esté vacío no se muestra el ícono.
 - Artículo de Semana ya enlazado (`SEMANA_URL`): participación de Steven Gutiérrez en el Foro Político de Alto Nivel 2026 en Nueva York. Confirmar con el cliente el cargo con el que debe aparecer.
 

@@ -24,7 +24,7 @@ SITE = 'https://jhonbermudezz.github.io/visas'      # dominio definitivo: pendie
 PHONE = '+57 300 000 0000'                           # pendiente
 PHONE_TEL = '+573000000000'                          # pendiente
 WHATSAPP = '573000000000'                            # pendiente, sin + ni espacios
-EMAIL = 'contacto@visasypasaportes.com.co'           # pendiente
+EMAIL = 'gdocumental@visasypasaportescolombia.com'   # gestión documental (correo general)
 ADDRESS = 'Carrera 45, Bogotá'                       # número exacto pendiente
 HOURS = 'Lunes a viernes, 8:00 a. m. a 5:00 p. m.'   # pendiente
 INSTAGRAM = 'https://www.instagram.com/visasypasaportescol'
@@ -541,6 +541,7 @@ def footer(R):
         <div class="footer__places">
           <a href="{wa(msg)}" target="_blank" rel="noopener">WhatsApp {PHONE}</a>
           <a href="mailto:{EMAIL}">{EMAIL}</a>
+          <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a>
           <a href="{R}contacto/#ubicacion">{ADDRESS}</a>
           <p>{HOURS}</p>
           <div class="socials" style="margin-top:1rem">
@@ -1181,7 +1182,7 @@ def contacto(R):
         <div class="axis__main channels" data-reveal>
           <div class="channel"><h3>WhatsApp</h3><p>{PHONE}. El canal más rápido para empezar tu trámite.</p><a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir ahora</a></div>
           <div class="channel"><h3>Teléfono</h3><p>{PHONE}. {HOURS}</p><a class="btn btn--line" href="tel:{PHONE_TEL}">Llamar</a></div>
-          <div class="channel"><h3>Correo</h3><p>{EMAIL}. Para enviar documentos. Las PQRS se radican en {PQRS_EMAIL}.</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
+          <div class="channel"><h3>Correo</h3><p><strong>Documentos:</strong> {EMAIL}<br><strong>PQRS:</strong> {PQRS_EMAIL}</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
         </div>
       </div>
     </section>
@@ -1195,7 +1196,8 @@ def contacto(R):
             <div><dt>Dirección</dt><dd>{ADDRESS}</dd></div>
             <div><dt>Horario</dt><dd>{HOURS}</dd></div>
             <div><dt>Teléfono y WhatsApp</dt><dd><a href="tel:{PHONE_TEL}">{PHONE}</a></dd></div>
-            <div><dt>Correo</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
+            <div><dt>Correo de documentos</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
+            <div><dt>Correo de PQRS</dt><dd><a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a></dd></div>
             <div><dt>Síguenos</dt><dd><div class="socials"><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>{TT_LINK}</div></dd></div>
           </dl>
         </div>
@@ -1218,8 +1220,7 @@ PQRS_BODY = f'''
       <h2>Canales oficiales</h2>
       <ul>
         <li><strong>PQRS y reclamos:</strong> <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a></li>
-        <li><strong>Hábeas data y privacidad:</strong> <a href="mailto:{PRIVACY_EMAIL}">{PRIVACY_EMAIL}</a></li>
-        <li><strong>Controversias jurídicas y notificaciones contractuales:</strong> <a href="mailto:{LEGAL_EMAIL}">{LEGAL_EMAIL}</a></li>
+        <li><strong>Envío de documentos y gestión documental:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></li>
       </ul>
       <p>WhatsApp y las redes sociales son canales informativos y de soporte. Las reclamaciones formales se tramitan por los correos oficiales.</p>
       <p>Incluye tu nombre, documento, datos de contacto, el trámite al que se refiere y una descripción de la solicitud.</p>
