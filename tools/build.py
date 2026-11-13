@@ -22,15 +22,13 @@ BRAND = 'Visas y Pasaportes Colombia'
 BRAND_SHORT = 'Visas y Pasaportes'
 SITE = 'https://jhonbermudezz.github.io/visas'      # dominio definitivo: pendiente
 PHONE = '+57 300 000 0000'                           # pendiente
-PHONE_TEL = '+573000000000'                          # pendiente
 WHATSAPP = '573000000000'                            # pendiente, sin + ni espacios
 EMAIL = 'gdocumental@visasypasaportescolombia.com'   # gestión documental (correo general)
-ADDRESS = 'Carrera 45, Bogotá'                       # número exacto pendiente
-HOURS = 'Lunes a viernes, 8:00 a. m. a 5:00 p. m.'   # pendiente
+ADDRESS = 'Carrera 45 # 108A-50, Bogotá'
 INSTAGRAM = 'https://www.instagram.com/visasypasaportescol'
 TIKTOK = 'https://www.tiktok.com/@visasypasaportescolombia'
 SEMANA_URL = 'https://www.semana.com/mundo/noticias-estados-unidos/articulo/migracion-pobreza-y-desigualdad-los-retos-que-discutiran-lideres-mundiales-en-nueva-york/202646/'
-MAP_QUERY = 'Carrera 45, Bogotá, Colombia'
+MAP_QUERY = 'Carrera 45 108A-50, Bogotá, Colombia'
 YEAR = date.today().year
 
 FONTS = 'https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap'
@@ -120,6 +118,7 @@ PIECES = {
                ('paso3-canada', 720, 720, 'El costo de la solicitud es de 185 dólares canadienses'),
                ('paso4-canada', 720, 720, 'El tiempo de solicitud es de un mes, incluida la toma de huellas y fotos'),
                ('paso5-canada', 720, 720, 'El proceso es en línea a través del portal GCKey de Canadá')],
+    'renovacion': [('precio-renovacion', 720, 1280, 'Solicitud de visa americana por renovación: valor por solicitante 180.000 pesos')],
     'primera-vez': [('precio-primera-vez', 720, 1280, 'Solicitud de visa americana por primera vez: valor por solicitante 200.000 pesos')],
     'guia': [('guia-primera-vez', 720, 1280, 'Visa americana: guía para tu solicitud de visa por primera vez')],
     'reino-unido': [('pieza-reino-unido', 720, 1280, 'Visa Reino Unido')],
@@ -235,6 +234,11 @@ for _s in US_SUBS:
     if isinstance(_s['help'], str):
         _s['help'] = next(x['help'] for x in US_SUBS if x['slug'] == _s['help'])
 
+for _s in US_SUBS:
+    if _s['slug'] == 'visa-perdida':
+        _pv = next(x for x in US_SUBS if x['slug'] == 'primera-vez')
+        _s.update(help=_pv['help'], docs=_pv['docs'], times=_pv['times'])
+
 COUNTRIES = [
     {
         'slug': 'visa-reino-unido', 'country': 'Reino Unido', 'flag': 'gb', 'photo': 'westminster', 'cls': 'uk',
@@ -314,12 +318,12 @@ CONSULAR_US = '$795.000 COP'
 PRICES = {
     'primera-vez': ('$200.000 COP', CONSULAR_US),
     'renovacion': ('$180.000 COP', CONSULAR_US),
-    'visa-revocada': (None, CONSULAR_US),
-    'visa-perdida': (None, CONSULAR_US),
+    'visa-revocada': ('$1.400.000 COP (depende del caso)', CONSULAR_US),
+    'visa-perdida': ('$200.000 COP', CONSULAR_US),
     'visa-reino-unido': ('$250.000 COP', '$600.000 COP'),
     'visa-canada': ('$250.000 COP', 'CAD 185 por persona o CAD 570 por familia'),
     'visa-malasia': ('$250.000 COP', '$200.000 COP'),
-    'visa-australia': (None, None),
+    'visa-australia': ('$250.000 COP', None),
 }
 FEE_PENDING = 'Te lo confirmamos por WhatsApp'
 
@@ -496,7 +500,6 @@ def header(R, active):
         <a class="header__social" href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>
         {TT_LINK.replace('<a ', '<a class="header__social" ', 1)}
         <a class="btn btn--line btn--sm" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}WhatsApp</a>
-        <a class="btn btn--primary btn--sm" href="{R}#consulta">Solicitar asesoría</a>
       </div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú"><span></span><span></span></button>
     </div>
@@ -543,7 +546,6 @@ def footer(R):
           <a href="mailto:{EMAIL}">{EMAIL}</a>
           <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a>
           <a href="{R}contacto/#ubicacion">{ADDRESS}</a>
-          <p>{HOURS}</p>
           <div class="socials" style="margin-top:1rem">
             <a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>
             {TT_LINK}
@@ -565,7 +567,6 @@ def footer(R):
   </footer>
 
   <div class="float">
-    <a class="float__call" href="tel:{PHONE_TEL}" aria-label="Llamar">{icon("phone")}<span>Llamar</span></a>
     <a class="float__wa" href="{wa(msg)}" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" data-track="whatsapp">{icon("wa")}<span class="only-wide">Escríbenos</span><span class="only-narrow">WhatsApp</span></a>
   </div>
 
@@ -629,9 +630,8 @@ def close_band(R, line='Hablemos de tu visa', photo='entrega'):
             <p class="lead">Inicia tu proceso de visa y atenderemos tus inquietudes de servicio.</p>
             <div class="actions">
               <a class="btn btn--wa" href="{wa("Hola, quiero que revisen mi caso de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
-              <a class="btn btn--line" href="tel:{PHONE_TEL}">{icon("phone")}Llamar</a>
             </div>
-            <p class="cta-card__meta">{ADDRESS}. {HOURS}</p>
+            <p class="cta-card__meta">{ADDRESS}</p>
           </div>
           <figure class="cta-card__photo">{img(R, photo, sizes="(max-width: 860px) 100vw, 45vw", alt=PHOTOS[photo][0])}</figure>
         </div>
@@ -705,7 +705,7 @@ def page(path, title, desc, body, active='', ld=None, noindex=False, file=None, 
 SLIDES = [
     {'tab': 'Colombia', 'flag': 'co', 'photo': 'hero-familia', 'title': 'Desde Bogotá, para todo el país',
      'lead': 'Preparamos tu solicitud de visa para Estados Unidos, Reino Unido, Canadá, Australia y Malasia: revisamos tu caso, ordenamos los documentos y te acompañamos hasta la cita.'},
-    {'maps': ['us'], 'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'hero-eeuu', 'title': 'Visa americana, bien preparada',
+    {'maps': ['us'], 'tab': 'Estados Unidos', 'flag': 'us', 'photo': 'salidas', 'title': 'Visa americana, bien preparada',
      'lead': 'Primera vez, renovación, visas revocadas o perdidas. Revisamos tu perfil antes de diligenciar el DS-160 y te preparamos para la entrevista.'},
     {'maps': ['gb', 'ca', 'au', 'my'], 'tab': 'Más destinos', 'flag': 'gb', 'photo': 'hero-destinos', 'title': 'Reino Unido, Canadá, Australia y Malasia',
      'lead': 'Visas de turismo con solicitud en línea, soportes en orden y cita biométrica cuando el país la exige.'},
@@ -726,7 +726,7 @@ def home(R):
     us_links = ''.join(f'<li><a href="{R}servicios/visa-estados-unidos/{x["slug"]}/">{x["name"]} {ARROW}</a></li>' for x in US_SUBS)
     cards = [f'''<article class="country country--us">
             <a class="country__img" href="{R}servicios/visa-estados-unidos/" tabindex="-1" aria-hidden="true">{img(R, "cliente/eeuu-fondo", sizes="(max-width: 860px) 100vw, 66vw")}</a>
-            <span class="country__flag">{flag("us", " fis")}</span>
+            <span class="country__flag">{map_ico(R, "us", "map-ico map-ico--card")}</span>
             <div class="country__body">
               <h3><a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
               <p>Visa de turismo B1/B2 en cuatro casos.</p>
@@ -737,7 +737,7 @@ def home(R):
     for c in COUNTRIES:
         cards.append(f'''<article class="country">
             <a class="country__img" href="{R}servicios/{c["slug"]}/" tabindex="-1" aria-hidden="true">{img(R, c["photo"], sizes="(max-width: 860px) 100vw, 33vw")}</a>
-            <span class="country__flag">{flag(c["flag"], " fis")}</span>
+            <span class="country__flag">{map_ico(R, c["flag"], "map-ico map-ico--card")}</span>
             <div class="country__body">
               <h3><a href="{R}servicios/{c["slug"]}/">{c["country"]}</a></h3>
               <p>{c["short"]}</p>
@@ -776,7 +776,6 @@ def home(R):
             {"".join(slides)}
           </div>
           <div class="actions hero__actions">
-            <a class="btn btn--primary" href="#consulta">Solicitar asesoría</a>
             <a class="btn btn--wa" href="{wa("Hola, quiero información sobre la visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir por WhatsApp</a>
           </div>
           <div class="hero__tabs" role="tablist" aria-label="Destinos">{"".join(tabs)}</div>
@@ -832,7 +831,7 @@ def home(R):
         </figure>
         <div class="about__text" data-reveal>
           <h2 class="head" id="gerencia">Gerencia de visas y procesos migratorios</h2>
-          <p class="lead">Somos un equipo de cuatro asesores en Bogotá. Llevamos más de seis años preparando solicitudes de visa: revisamos cada documento y te acompañamos por WhatsApp.</p>
+          <p class="lead">Somos un equipo especializado en asuntos de regulación migratoria. Llevamos más de seis años preparando solicitudes de visa: revisamos cada documento y te acompañamos por WhatsApp.</p>
           <ul class="checks">
             <li><strong>Credencial de cooperación internacional</strong>Colaboramos con la Organización Internacional para las Migraciones y con embajadas.</li>
             <li><strong>Asesoría a jueces de inmigración</strong>Nuestra gerencia ha asesorado a jueces de inmigración en cortes de Estados Unidos.</li>
@@ -878,9 +877,9 @@ def home(R):
 ORG_LD = {
     '@context': 'https://schema.org', '@type': 'ProfessionalService', 'name': BRAND, 'url': f'{SITE}/',
     'logo': f'{SITE}/assets/img/logo.png', 'image': f'{SITE}/assets/img/bogota.webp',
-    'telephone': PHONE_TEL, 'email': EMAIL, 'areaServed': 'CO',
-    'address': {'@type': 'PostalAddress', 'streetAddress': 'Carrera 45', 'addressLocality': 'Bogotá', 'addressCountry': 'CO'},
-    'openingHours': 'Mo-Fr 08:00-17:00', 'sameAs': [u for u in (INSTAGRAM, TIKTOK) if u],
+    'email': EMAIL, 'areaServed': 'CO',
+    'address': {'@type': 'PostalAddress', 'streetAddress': 'Carrera 45 # 108A-50', 'addressLocality': 'Bogotá', 'addressCountry': 'CO'},
+    'sameAs': [u for u in (INSTAGRAM, TIKTOK) if u],
     'description': 'Asesoría privada en visas de Estados Unidos, Reino Unido, Canadá, Australia y Malasia desde Bogotá.',
 }
 
@@ -1052,7 +1051,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
 '''
 
 
-PIECE_MAP = {'primera-vez': ['primera-vez', 'eeuu'], 'renovacion': ['eeuu'], 'visa-canada': ['canada'], 'visa-reino-unido': ['reino-unido']}
+PIECE_MAP = {'primera-vez': ['primera-vez', 'eeuu'], 'renovacion': ['renovacion', 'eeuu'], 'visa-perdida': ['primera-vez', 'eeuu'], 'visa-canada': ['canada'], 'visa-reino-unido': ['reino-unido']}
 
 
 def service_ld(name, desc, path):
@@ -1173,15 +1172,14 @@ def contacto(R):
     q = quote(MAP_QUERY)
     return f'''
     {inner_hero(R, [("contacto/", "Contacto")], ["Contacto y oficina", "en Bogotá"],
-    "Elige el canal que prefieras. Te respondemos en horario de atención.",
-    side=f"<span>{HOURS}</span>", photo="candelaria")}
+    "Escríbenos por WhatsApp o visítanos en la oficina.",
+    photo="candelaria")}
 
     <section class="section section--tone" aria-labelledby="canales">
       <div class="wrap axis">
         <div class="axis__side"><h2 class="head" id="canales">Canales de atención</h2></div>
         <div class="axis__main channels" data-reveal>
           <div class="channel"><h3>WhatsApp</h3><p>{PHONE}. El canal más rápido para empezar tu trámite.</p><a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}Escribir ahora</a></div>
-          <div class="channel"><h3>Teléfono</h3><p>{PHONE}. {HOURS}</p><a class="btn btn--line" href="tel:{PHONE_TEL}">Llamar</a></div>
           <div class="channel"><h3>Correo</h3><p><strong>Documentos:</strong> {EMAIL}<br><strong>PQRS:</strong> {PQRS_EMAIL}</p><a class="btn btn--line" href="mailto:{EMAIL}">Enviar correo</a></div>
         </div>
       </div>
@@ -1194,8 +1192,7 @@ def contacto(R):
           <dl class="nap" style="margin-top:2rem">
             <div><dt>Razón social</dt><dd>{BRAND}</dd></div>
             <div><dt>Dirección</dt><dd>{ADDRESS}</dd></div>
-            <div><dt>Horario</dt><dd>{HOURS}</dd></div>
-            <div><dt>Teléfono y WhatsApp</dt><dd><a href="tel:{PHONE_TEL}">{PHONE}</a></dd></div>
+            <div><dt>WhatsApp</dt><dd><a href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener">{PHONE}</a></dd></div>
             <div><dt>Correo de documentos</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
             <div><dt>Correo de PQRS</dt><dd><a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a></dd></div>
             <div><dt>Síguenos</dt><dd><div class="socials"><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>{TT_LINK}</div></dd></div>
@@ -1312,7 +1309,7 @@ def build():
               'author': {'@type': 'Organization', 'name': BRAND}, 'publisher': {'@type': 'Organization', 'name': BRAND, 'logo': {'@type': 'ImageObject', 'url': f'{SITE}/assets/img/logo.png'}},
               'mainEntityOfPage': f'{SITE}/{path}'}
         page(path, p['title'], p['desc'], lambda R, p=p: article(R, p), 'blog/', [ld, breadcrumb_ld([('blog/', 'Blog'), (path, p['title'])])])
-    page('contacto/', 'Contacto y oficina en Bogotá', f'Escríbenos por WhatsApp, llámanos o visítanos en {ADDRESS}. Asesoría de visas de lunes a viernes.', contacto, 'contacto/',
+    page('contacto/', 'Contacto y oficina en Bogotá', f'Escríbenos por WhatsApp o visítanos en {ADDRESS}. Asesoría de visas en Bogotá.', contacto, 'contacto/',
          [dict(ORG_LD, **{'@type': 'ProfessionalService'}), breadcrumb_ld([('contacto/', 'Contacto')])])
     for slug, name, h1, sub, pdf in LEGAL:
         page(f'{slug}/', name, sub, legal_page(slug, name, h1, sub, pdf), '', [breadcrumb_ld([(f'{slug}/', name)])])

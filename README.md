@@ -49,7 +49,7 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 
 ### Material del cliente
 
-Fondos de EE. UU. y Canadá, mapas con bandera (menú y carrusel) y piezas de redes (galería "Así es el proceso" en cada servicio) en `assets/img/cliente/` y `assets/img/mapas/`. La pieza de renovación con Mickey Mouse no se usa por derechos de autor.
+Fondos de EE. UU. y Canadá, mapas con bandera (menú y carrusel) y piezas de redes (galería "Así es el proceso" en cada servicio) en `assets/img/cliente/` y `assets/img/mapas/`. La pieza de renovación con Mickey Mouse se usa: el cliente confirmó que compró los derechos.
 
 ### Intro con video
 
