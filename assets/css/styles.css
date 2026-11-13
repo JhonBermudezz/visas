@@ -767,6 +767,25 @@ p + p { margin-top: 0.9em; }
 .footer__legal { align-items: center; flex-wrap: nowrap; }
 .footer__legal p { flex: 1; }
 
+/* ---------- intro con el video del logo (primera visita de la sesión) ---------- */
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #d4d9de; transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms; animation: intro-safety 0s linear 9.5s forwards; }
+.intro__video { width: min(100%, 1100px); height: auto; -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%); }
+.intro__skip { position: absolute; right: var(--margin); bottom: calc(1.5rem + env(safe-area-inset-bottom)); min-height: 2.75rem; padding: 0 1.2rem; border-radius: 999px; background: rgba(11, 20, 48, 0.85); color: #fff; font-family: var(--font-display); font-weight: 500; font-size: var(--step-ui); transition: background-color var(--t-hover) ease, transform var(--t-press) var(--ease-out); }
+.intro__skip:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .intro__skip:hover { background: var(--navy-deep); } }
+.intro.is-out { opacity: 0; visibility: hidden; }
+.no-intro .intro { display: none; }
+.intro-on body { overflow: hidden; }
+@keyframes intro-safety { to { opacity: 0; visibility: hidden; } }
+@media (max-width: 700px) { .intro__video { width: 150%; max-width: none; } }
+
+/* redes en el encabezado */
+.header__social { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; color: var(--ink); transition: background-color var(--t-hover) ease, color var(--t-hover) ease; }
+.header__social svg { width: 1.3rem; height: 1.3rem; }
+@media (hover: hover) and (pointer: fine) { .header__social:hover { background: var(--surface); color: var(--red); } }
+.header__cta { align-items: center; }
+.mobile-menu__social { margin-top: 1.5rem; }
+
 /* ---------- entradas al hacer scroll (el contenido se ve sin JS) ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .js :is(.countries, .post-grid, .dest-grid, .post-list, .coop-list)[data-reveal] > * { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 800ms var(--ease-out); transition-delay: calc(var(--d, 0) * 80ms); }
@@ -782,6 +801,12 @@ p + p { margin-top: 0.9em; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ---------- pasos del servicio ---------- */
+.prose ol.steps { list-style: none; padding: 0; margin-top: 1.25rem; display: grid; gap: 0.75rem; counter-reset: paso; }
+.prose ol.steps li { counter-increment: paso; position: relative; padding: 1.1rem 1.25rem 1.1rem 4.25rem; border-radius: var(--radius); background: var(--surface); }
+.prose ol.steps li::before { content: counter(paso); position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: var(--red); color: #fff; font-family: var(--font-display); font-weight: 600; }
+.prose ol.steps strong { color: var(--ink); }
 
 /* ---------- documentos legales ---------- */
 .legal { max-width: 46rem; }

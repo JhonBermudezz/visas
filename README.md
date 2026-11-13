@@ -47,6 +47,14 @@ Si el cliente necesita publicar sin tocar archivos, el siguiente paso es conecta
 - Cabeceras a pantalla completa con foto y velo azul marino, botones tipo píldora y esquinas suaves en fotos y bloques.
 - Movimiento: carrusel con barras de progreso, fotos de cabecera que se desplazan más lento que la página, cifras que cuentan al aparecer y entradas escalonadas.
 
+### Intro con video
+
+El video del logo (`assets/video/intro.webm` y `intro.mp4`, acelerado a unos 6,5 s, sin audio) se muestra solo en la primera visita de cada sesión, con botón para saltarlo. No aparece si el sistema pide reducir el movimiento, y se oculta solo a los 9 s aunque falle el JavaScript.
+
+### Documentos legales
+
+Texto oficial en `content/legal/*.html` (convertido de los PDF del cliente) y PDF descargables en `assets/docs/`.
+
 ### Versión anterior
 
 La primera versión (clásica, con serifa) quedó guardada como copia fija en `legacy/`, visible en https://jhonbermudezz.github.io/visas/legacy/ y fuera de los buscadores. No se regenera con el script.

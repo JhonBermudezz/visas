@@ -22,7 +22,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/styles.css">
-  <script>document.documentElement.classList.add('js')</script>
+  <script>document.documentElement.classList.add('js');try{var d=document.documentElement;if(sessionStorage.getItem('vp-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('no-intro')}else{d.classList.add('intro-on')}}catch(e){document.documentElement.classList.add('no-intro')}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Asesoría para visa americana", "description": "Asesoría para la visa americana desde Bogotá: primera vez, renovación, visa revocada y visa perdida o robada.", "serviceType": "Asesoría de visas", "areaServed": "CO", "provider": {"@type": "ProfessionalService", "name": "Visas y Pasaportes Colombia", "url": "https://jhonbermudezz.github.io/visas/"}, "url": "https://jhonbermudezz.github.io/visas/servicios/visa-estados-unidos/"}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://jhonbermudezz.github.io/visas/"}, {"@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://jhonbermudezz.github.io/visas/servicios/"}, {"@type": "ListItem", "position": 3, "name": "Estados Unidos", "item": "https://jhonbermudezz.github.io/visas/servicios/visa-estados-unidos/"}]}</script>
 </head>
@@ -44,6 +44,14 @@
   <symbol id="i-card" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.8" y="5.5" width="18.4" height="13" rx="1.5"/><path d="M2.8 9.8h18.4M6.5 15h4"/></g></symbol>
 </svg>
   <a class="skip" href="#main">Saltar al contenido</a>
+  <div class="intro" id="intro" aria-hidden="true">
+    <video class="intro__video" muted playsinline preload="auto" poster="../../assets/video/intro-poster.jpg">
+      <source src="../../assets/video/intro.webm" type="video/webm">
+      <source src="../../assets/video/intro.mp4" type="video/mp4">
+    </video>
+    <button class="intro__skip" type="button">Saltar intro</button>
+  </div>
+  <script>(function(){var d=document.documentElement,el=document.getElementById('intro');if(!el)return;if(d.classList.contains('no-intro')){el.remove();return}var v=el.querySelector('video'),done=false;function end(){if(done)return;done=true;try{sessionStorage.setItem('vp-intro','1')}catch(e){}el.classList.add('is-out');d.classList.remove('intro-on');setTimeout(function(){el.remove()},700)}v.addEventListener('ended',end);v.addEventListener('error',end,true);el.querySelector('button').addEventListener('click',end);var p=v.play();if(p&&p.catch)p.catch(function(){setTimeout(end,1200)});setTimeout(end,8500)})();</script>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="../../" aria-label="Visas y Pasaportes Colombia, inicio"><img src="../../assets/img/logo.webp" alt="Visas y Pasaportes Colombia" width="640" height="274"></a>
@@ -63,6 +71,8 @@
         </ul>
       </nav>
       <div class="header__cta">
+        <a class="header__social" href="https://www.instagram.com/visasypasaportescol" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ig"></use></svg></a>
+        
         <a class="btn btn--line btn--sm" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20visa." target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>WhatsApp</a>
         <a class="btn btn--primary btn--sm" href="../../#consulta">Solicitar asesoría</a>
       </div>
@@ -83,6 +93,7 @@
       <li><a href="../../blog/">Blog</a></li>
       <li><a href="../../contacto/">Contacto</a></li>
     </ul>
+    <div class="mobile-menu__social socials"><a href="https://www.instagram.com/visasypasaportescol" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ig"></use></svg></a></div>
     <div class="actions">
       <a class="btn btn--primary" href="../../#consulta">Solicitar asesoría</a>
       <a class="btn btn--wa" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20visa." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>Escribir por WhatsApp</a>

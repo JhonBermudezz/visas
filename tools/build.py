@@ -120,10 +120,11 @@ US_SUBS = [
         'desc': 'Asesoría para pedir la visa americana de turismo por primera vez desde Bogotá: DS-160, pago, citas y preparación para la entrevista.',
         'lead': 'Te ayudamos a pedir la visa de turismo B1/B2 desde Bogotá: formulario DS-160, pago de la tarifa, citas y preparación para la entrevista.',
         'short': 'Formulario DS-160, citas y preparación para la entrevista.',
-        'help': ['Revisamos tu perfil y el motivo del viaje antes de empezar.',
-                 'Diligenciamos contigo el DS-160 con información coherente y verificable.',
-                 'Te guiamos en el pago de la tarifa consular y en la programación de las citas.',
-                 'Te preparamos para la entrevista con las preguntas que suelen hacer.'],
+        'help': ['<strong>Inscripción</strong> en el Centro de Atención al Solicitante de la Embajada de Estados Unidos.',
+                 '<strong>Asesoría y pago de derechos consulares:</strong> tasa consular de $795.000 COP.',
+                 '<strong>Agendamiento de citas</strong> de biométricos y entrevista consular, con gestión de adelantamiento de cita cuando aplica.',
+                 '<strong>Formulario DS-160</strong> para la visa de turismo B1/B2.',
+                 '<strong>Preparación de la entrevista consular:</strong> revisión de tu caso y práctica de las preguntas.'],
         'docs': ['Pasaporte vigente.',
                  'Fotografía digital reciente con las especificaciones del Departamento de Estado.',
                  'Soportes de arraigo: certificado laboral o de ingresos, extractos bancarios, propiedades o estudios.',
@@ -212,14 +213,15 @@ COUNTRIES = [
         'title': 'Visa de turismo para Canadá desde Colombia',
         'desc': 'Visa de visitante para Canadá: revisamos si aplicas a visa o a eTA, diligenciamos la solicitud en línea y te guiamos en la biometría.',
         'lead': 'Preparamos tu solicitud de visa de visitante en la cuenta en línea del Gobierno de Canadá, con soportes ordenados y la cita de biometría.',
-        'short': 'Visa de visitante o eTA, según tu caso.',
-        'help': ['Revisamos si tu caso corresponde a visa de visitante o a autorización electrónica de viaje (eTA).',
-                 'Creamos y diligenciamos la solicitud en línea.',
-                 'Organizamos los soportes de arraigo y solvencia.',
-                 'Te guiamos en la toma de datos biométricos.'],
+        'short': 'Formularios IMM5257 e IMM5645 y solicitud por GCKey.',
+        'help': ['<strong>Registro en GCKey</strong>, el portal en línea del Gobierno de Canadá.',
+                 '<strong>Formulario IMM5257</strong>: solicitud de visa de visitante.',
+                 '<strong>Formulario IMM5645</strong>: información familiar.',
+                 '<strong>Envío de la solicitud</strong> de visa a la Embajada de Canadá.',
+                 '<strong>Toma de huellas y fotos</strong> (biometría): te guiamos en la cita.'],
         'docs': ['Pasaporte vigente.', 'Extractos bancarios y soportes de ingresos.', 'Certificado laboral o de estudios.',
                  'Historial de viajes.', 'Itinerario y, si aplica, carta de invitación.'],
-        'times': 'El Gobierno de Canadá publica los tiempos de procesamiento vigentes y los actualiza con frecuencia. Las tarifas de visa y biometría se pagan en línea al Gobierno de Canadá.',
+        'times': 'El proceso es en línea, a través del portal GCKey. La solicitud toma alrededor de un mes, incluida la toma de huellas y fotos; el Gobierno de Canadá puede cambiar sus tiempos de procesamiento.',
         'note': 'En la mayoría de los casos no hay entrevista y el oficial decide con lo que lee. Por eso revisamos cada soporte antes de cargarlo.',
     },
     {
@@ -387,7 +389,7 @@ def head(R, title, desc, path, ld=None, noindex=False):
   <link href="{FONTS}" rel="stylesheet">
   <link href="{FLAGS}" rel="stylesheet">
   <link rel="stylesheet" href="{R}assets/css/styles.css">
-  <script>document.documentElement.classList.add('js')</script>{lds}
+  <script>document.documentElement.classList.add('js');try{{var d=document.documentElement;if(sessionStorage.getItem('vp-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){{d.classList.add('no-intro')}}else{{d.classList.add('intro-on')}}}}catch(e){{document.documentElement.classList.add('no-intro')}}</script>{lds}
 </head>'''
 
 
@@ -429,6 +431,14 @@ def header(R, active):
     return f'''<body>
   {SPRITE}
   <a class="skip" href="#main">Saltar al contenido</a>
+  <div class="intro" id="intro" aria-hidden="true">
+    <video class="intro__video" muted playsinline preload="auto" poster="{R}assets/video/intro-poster.jpg">
+      <source src="{R}assets/video/intro.webm" type="video/webm">
+      <source src="{R}assets/video/intro.mp4" type="video/mp4">
+    </video>
+    <button class="intro__skip" type="button">Saltar intro</button>
+  </div>
+  <script>(function(){{var d=document.documentElement,el=document.getElementById('intro');if(!el)return;if(d.classList.contains('no-intro')){{el.remove();return}}var v=el.querySelector('video'),done=false;function end(){{if(done)return;done=true;try{{sessionStorage.setItem('vp-intro','1')}}catch(e){{}}el.classList.add('is-out');d.classList.remove('intro-on');setTimeout(function(){{el.remove()}},700)}}v.addEventListener('ended',end);v.addEventListener('error',end,true);el.querySelector('button').addEventListener('click',end);var p=v.play();if(p&&p.catch)p.catch(function(){{setTimeout(end,1200)}});setTimeout(end,8500)}})();</script>
   <header class="header" id="top">
     <div class="wrap header__inner">
       <a class="logo" href="{R or './'}" aria-label="{BRAND}, inicio"><img src="{R}assets/img/logo.webp" alt="{BRAND}" width="640" height="274"></a>
@@ -438,6 +448,8 @@ def header(R, active):
         </ul>
       </nav>
       <div class="header__cta">
+        <a class="header__social" href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>
+        {TT_LINK.replace('<a ', '<a class="header__social" ', 1)}
         <a class="btn btn--line btn--sm" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener" data-track="whatsapp">{icon("wa")}WhatsApp</a>
         <a class="btn btn--primary btn--sm" href="{R}#consulta">Solicitar asesoría</a>
       </div>
@@ -458,6 +470,7 @@ def header(R, active):
       <li><a href="{R}blog/">Blog</a></li>
       <li><a href="{R}contacto/">Contacto</a></li>
     </ul>
+    <div class="mobile-menu__social socials"><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>{TT_LINK}</div>
     <div class="actions">
       <a class="btn btn--primary" href="{R}#consulta">Solicitar asesoría</a>
       <a class="btn btn--wa" href="{wa("Hola, quiero información sobre un trámite de visa.")}" target="_blank" rel="noopener">{icon("wa")}Escribir por WhatsApp</a>
@@ -666,7 +679,7 @@ def home(R):
             <div class="country__body">
               <h3><a href="{R}servicios/visa-estados-unidos/">Estados Unidos</a></h3>
               <p>Visa de turismo B1/B2 en cuatro casos.</p>
-              <p class="country__price">Asesoría desde $180.000 COP</p>
+              <p class="country__price">Asesoría desde $180.000 COP por solicitante</p>
               <ul class="country__links">{us_links}</ul>
             </div>
           </article>''']
@@ -677,7 +690,7 @@ def home(R):
             <div class="country__body">
               <h3><a href="{R}servicios/{c["slug"]}/">{c["country"]}</a></h3>
               <p>{c["short"]}</p>
-              {f'<p class="country__price">Asesoría {PRICES[c["slug"]][0]}</p>' if PRICES[c["slug"]][0] else ''}
+              {f'<p class="country__price">Asesoría {PRICES[c["slug"]][0]} por solicitante</p>' if PRICES[c["slug"]][0] else ''}
               <a class="more" href="{R}servicios/{c["slug"]}/">Ver el proceso {ARROW}</a>
             </div>
           </article>''')
@@ -792,7 +805,7 @@ def home(R):
           <div class="planner__result" aria-live="polite">
             <h3 data-title>Estados Unidos, {first["label"].lower()}</h3>
             <dl class="prices prices--compact">
-              <div><dt>Honorarios de la asesoría</dt><dd data-fee>{first["fee"]}</dd></div>
+              <div><dt>Honorarios por solicitante</dt><dd data-fee>{first["fee"]}</dd></div>
               <div><dt>Derechos consulares</dt><dd data-consular>{first["consular"]}</dd></div>
             </dl>
             <ul class="planner__docs" data-docs hidden></ul>
@@ -939,7 +952,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
     if is_cas:
         cas = '<h2 id="cita-cas">Documentación para el día de tu cita de radicación en el CAS</h2><ul>' + ''.join(f'<li>{x}</li>' for x in CAS_DOCS) + '</ul>'
     prices = f'''<dl class="prices">
-            <div><dt>Honorarios de la asesoría</dt><dd>{fee or FEE_PENDING}</dd></div>
+            <div><dt>Honorarios por solicitante</dt><dd>{fee or FEE_PENDING}</dd></div>
             <div><dt>Derechos consulares</dt><dd>{consular or FEE_PENDING}</dd></div>
           </dl>
           <p class="small soft">Los derechos consulares se pagan a la entidad de cada país y pueden cambiar con la tasa de cambio. Te confirmamos el valor vigente antes de pagar.</p>'''
@@ -965,7 +978,7 @@ def service_detail(R, s, country, flag_code, photo, trail, pay_id):
         </aside>
         <div class="prose" data-reveal>
           <h2 id="acompanamiento">Cómo te acompañamos</h2>
-          <ul>{help_}</ul>
+          <ol class="steps">{help_}</ol>
           {cas}
           <h2 id="costos">Costos y tiempos</h2>
           {prices}
