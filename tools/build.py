@@ -536,10 +536,12 @@ def footer(R):
       </div>
       <div class="footer__row">
         <div class="footer__places">
-          <a href="{wa(msg)}" target="_blank" rel="noopener">WhatsApp {PHONE}</a>
-          <a href="mailto:{EMAIL}">{EMAIL}</a>
-          <a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a>
-          <a href="{R}contacto/#ubicacion">{ADDRESS}</a>
+          <a class="footer__wa" href="{wa(msg)}" target="_blank" rel="noopener">WhatsApp {PHONE}</a>
+          <dl class="footer__contact">
+            <div><dt>Documentos</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
+            <div><dt>PQRS</dt><dd><a href="mailto:{PQRS_EMAIL}">{PQRS_EMAIL}</a></dd></div>
+            <div><dt>Oficina</dt><dd><a href="{R}contacto/#ubicacion">{ADDRESS}</a></dd></div>
+          </dl>
           <div class="socials" style="margin-top:1rem">
             <a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{icon("ig")}</a>
             {TT_LINK}
