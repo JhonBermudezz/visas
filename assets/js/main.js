@@ -12,7 +12,7 @@ const EPAYCO_LINKS = {
   'visa-australia': '',
   'visa-malasia': '',
 };
-const WHATSAPP = '573000000000';
+const WHATSAPP = '573228488172';
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const waLink = (text) => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
